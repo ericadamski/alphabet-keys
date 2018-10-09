@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import { fromEvent } from 'rxjs';
+import { filter } from 'rxjs/operators';
 import styled, { injectGlobal } from 'styled-components';
 import * as serviceWorker from './serviceWorker';
 
-import { fromEvent } from 'rxjs';
-import { filter } from 'rxjs/operators';
+const synth = window.speechSynthesis;
 
 const keys = {
   48: ['0', '𝟬'],
@@ -71,7 +72,7 @@ const Container = styled.section`
   justify-content: center;
   flex-direction: column;
 
-  background: #E3DCF7;
+  background: #e3dcf7;
 `;
 
 const Emoji = styled.span`
@@ -89,14 +90,18 @@ class App extends Component {
 
   componentDidMount() {
     this.key = fromEvent(document, 'keydown')
-      .pipe(filter(({ keyCode }) => keyCode in keys))
+      .pipe(filter(({ keyCode }) => keyCode in keys && !synth.speaking))
       .subscribe(({ keyCode }) => {
         const [letter, emoji] = keys[keyCode];
 
-        this.setState({
-          emoji,
-          letters: isNaN(+letter) ? `${letter.toUpperCase()} ${letter}` : ''
-        });
+        this.setState(
+          {
+            emoji,
+            letters: isNaN(+letter) ? `${letter.toUpperCase()} ${letter}` : ''
+          },
+          () => synth.speak(new SpeechSynthesisUtterance(letter)),
+          synth.speak(new SpeechSynthesisUtterance(emoji))
+        );
       });
   }
 
@@ -108,7 +113,9 @@ class App extends Component {
     return (
       <Container>
         {!this.state.emoji && <Emoji>Press a key!</Emoji>}
-        <Emoji role="img" aria-label="emoji">{this.state.emoji}</Emoji>
+        <Emoji role="img" aria-label="emoji">
+          {this.state.emoji}
+        </Emoji>
         <Letters>{this.state.letters}</Letters>
       </Container>
     );
