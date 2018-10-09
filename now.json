@@ -1,0 +1,12 @@
+{
+  "type": "static",
+  "alias": ["alphabet-keys"],
+  "static": {
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}
