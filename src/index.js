@@ -7,33 +7,90 @@ import * as serviceWorker from './serviceWorker';
 
 const synth = window.speechSynthesis;
 
-const keys = {
-  48: { letter: '0', emojis: [] },
-  49: { letter: '1', emojis: [] },
-  50: { letter: '2', emojis: [] },
-  51: { letter: '3', emojis: [] },
-  52: { letter: '4', emojis: [] },
-  53: { letter: '5', emojis: [] },
-  54: { letter: '6', emojis: [] },
-  55: { letter: '7', emojis: [] },
-  56: { letter: '8', emojis: [] },
-  57: { letter: '9', emojis: [] },
-  65: { letter: 'a', emojis: [['🍎', 'apple'], '👽', '⚓️'] },
-  66: { letter: 'b', emojis: ['🍌', '👶', '🦇', '🐝'] },
-  67: { letter: 'c', emojis: ['🐄', '🐱', '🐈', ['🤠', 'cowboy'], '🛶'] },
-  68: { letter: 'd', emojis: ['🐶', ['💃', 'dancing'], '🦌'] },
-  69: { letter: 'e', emojis: ['🥚', '👁️', '🦅'] },
-  70: { letter: 'f', emojis: ['🐸', '🍟', '👣'] },
-  71: { letter: 'g', emojis: ['🍇', '👻', '🦍'] },
-  72: {
-    letter: 'h',
-    emojis: [['🥅', 'hockey net'], ['🏒', 'hockey stick'], '🐹', '🌺']
+const EMOJIS = {
+  de: {
+    65: [['🍎', 'Äpfel'], '👽', '⚓️', '👁️', '🦅', ['📫', 'Breifkasten']],
+    66: ['🍌', '👶', '🐝'],
+    67: [],
+    68: [],
+    69: ['🥚', '🦎'],
+    70: ['🐸', '🍟', '👣'],
+    71: ['👻', '🦍'],
+    72: [['🥅', 'Hockey-Netz'], ['🏒', 'Hockeyschläger'], '🐹', '🌺'],
+    73: [],
+    74: [['🤹🏼‍♀️', 'Jongleur'], '👖', ['🕹️', 'joystick']],
+    75: [],
+    76: ['🦁', '🐆'],
+    77: [['🌝', 'mond'], '🍈', '👄']
   },
-  73: { letter: 'i', emojis: [['🍦', 'ice cream']] },
-  74: { letter: 'j', emojis: [['🤹🏼‍♀️', 'juggler'], '👖', ['🕹️', 'joystick']] },
-  75: { letter: 'k', emojis: [['🔪', 'knife'], '🔑'] },
-  76: { letter: 'l', emojis: ['🦁', '🦎', '🐆'] },
-  77: { letter: 'm', emojis: [['🌝', 'moon'], ['📫', 'mailbox'], '🍈', '👄'] },
+  'en-CA': {
+    65: [['🍎', 'Apple'], '👽', '⚓️'],
+    66: ['🍌', '👶', '🦇', '🐝'],
+    67: ['🐄', '🐱', '🐈', ['🤠', 'cowboy'], '🛶'],
+    68: ['🐶', ['💃', 'dancing'], '🦌'],
+    69: ['🥚', '👁️', '🦅'],
+    70: ['🐸', '🍟', '👣'],
+    71: ['🍇', '👻', '🦍'],
+    72: [['🥅', 'hockey net'], ['🏒', 'hockey stick'], '🐹', '🌺'],
+    73: [['🍦', 'ice cream']],
+    74: [['🤹🏼‍♀️', 'juggler'], '👖', ['🕹️', 'joystick']],
+    75: [['🔪', 'knife'], '🔑'],
+    76: ['🦁', '🦎', '🐆'],
+    77: [['🌝', 'moon'], ['📫', 'mailbox'], '🍈', '👄']
+  },
+  'fr-CA': {
+    65: ['⚓️', '🦅'],
+    66: ['🍌', '👶', '🐝', '👄', ['📫', 'boites aux lettres']],
+    67: [
+      '🐶',
+      '🐱',
+      '🐈',
+      '🦇',
+      '🛶',
+      ['🤠', 'cow-boy'],
+      '🦌',
+      ['🏒', 'bâton de hockey'],
+      ['🍦', 'crème glacée'],
+      ['🔪', 'couteau'],
+      '🔑'
+    ],
+    68: [['💃', 'dansant']],
+    69: [['🥅', 'filet de hockey'], '👣'],
+    70: ['🍟', '👻'],
+    71: ['🦍'],
+    72: ['🐹', '🌺'],
+    73: [],
+    74: [['🤹🏼‍♀️', 'Jongleur'], '👖'],
+    75: [],
+    76: ['🦁', '🦎', '🐆'],
+    77: ['🍈']
+  }
+};
+
+const keys = {
+  48: { letter: '0' },
+  49: { letter: '1' },
+  50: { letter: '2' },
+  51: { letter: '3' },
+  52: { letter: '4' },
+  53: { letter: '5' },
+  54: { letter: '6' },
+  55: { letter: '7' },
+  56: { letter: '8' },
+  57: { letter: '9' },
+  65: { letter: 'a' },
+  66: { letter: 'b' },
+  67: { letter: 'c' },
+  68: { letter: 'd' },
+  69: { letter: 'e' },
+  70: { letter: 'f' },
+  71: { letter: 'g' },
+  72: { letter: 'h' },
+  73: { letter: 'i' },
+  74: { letter: 'j' },
+  75: { letter: 'k' },
+  76: { letter: 'l' },
+  77: { letter: 'm' },
   78: { letter: 'n', emojis: ['👃', ['🎶', 'notes']] },
   79: { letter: 'o', emojis: ['🐙', '👌'] },
   80: { letter: 'p', emojis: ['🥞', '🍐', ['🥘', 'pot']] },
@@ -88,8 +145,13 @@ const Letters = styled.span`
   font-size: 10rem;
 `;
 
+// Languages
+// fr-CA
+// en-CA
+// de
+
 class App extends Component {
-  state = { emoji: '', letters: '' };
+  state = { emoji: '', letters: '', lang: 'fr-CA' };
 
   componentDidMount() {
     this.key = fromEvent(document, 'keydown')
@@ -109,9 +171,18 @@ class App extends Component {
             emoji,
             letters: isNaN(+letter) ? `${letter.toUpperCase()} ${letter}` : ''
           },
-          () => synth.speak(new SpeechSynthesisUtterance(letter)),
-          emoji !== undefined &&
-            synth.speak(new SpeechSynthesisUtterance(text || emoji))
+          () => {
+            [
+              new SpeechSynthesisUtterance(letter),
+              emoji !== undefined && new SpeechSynthesisUtterance(text || emoji)
+            ]
+              .filter(Boolean)
+              .forEach(utterance => {
+                utterance.lang = this.state.lang;
+
+                synth.speak(utterance);
+              });
+          }
         );
       });
   }
@@ -123,7 +194,9 @@ class App extends Component {
   render() {
     return (
       <Container>
-        {!this.state.emoji && <Emoji>Press a key!</Emoji>}
+        {!(this.state.emoji && this.state.letters) && (
+          <Emoji>Press a key!</Emoji>
+        )}
         <Emoji role="img" aria-label="emoji">
           {this.state.emoji}
         </Emoji>
