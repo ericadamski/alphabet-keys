@@ -246,7 +246,9 @@ class App extends Component {
         this.setState(
           {
             emoji,
-            letters: isNaN(+letter) ? `${letter.toUpperCase()} ${letter}` : ''
+            letters: isNaN(+letter)
+              ? `${letter.toUpperCase()} ${letter}`
+              : letter
           },
           () => {
             [
