@@ -10,18 +10,31 @@ const synth = window.speechSynthesis;
 const EMOJIS = {
   de: {
     65: [['🍎', 'Äpfel'], '👽', '⚓️', '👁️', '🦅', ['📫', 'Breifkasten']],
-    66: ['🍌', '👶', '🐝'],
+    66: ['🍌', '👶', '🐝', '🍐'],
     67: [],
     68: [],
-    69: ['🥚', '🦎'],
+    69: ['🥚', '🦎', '🦄'],
     70: ['🐸', '🍟', '👣'],
-    71: ['👻', '🦍'],
-    72: [['🥅', 'Hockey-Netz'], ['🏒', 'Hockeyschläger'], '🐹', '🌺'],
-    73: [],
+    71: ['👻', '🦍', '🎻'],
+    72: [['🥅', 'Hockey-Netz'], ['🏒', 'Hockeyschläger'], '🐹', '🌺', '🐇'],
+    73: ['🐙'],
     74: [['🤹🏼‍♀️', 'Jongleur'], '👖', ['🕹️', 'joystick']],
     75: [],
     76: ['🦁', '🐆'],
-    77: [['🌝', 'mond'], '🍈', '👄']
+    77: [['🌝', 'Mond'], '🍈', '👄', ['🎶', 'Musiknoten']],
+    78: ['👃'],
+    79: ['🐙', '👌'],
+    80: ['🥞'],
+    81: ['🇶🇦'],
+    82: ['🤖', '♻️', '☂️'],
+    83: ['🐍', '🤳', '🥗', ['⭐️', 'Stern']],
+    84: ['🦃', '🐯', '🌮', '🐅'],
+    85: [],
+    86: ['🏐', ['🌋', 'Vulkan']],
+    87: ['🌊', '🍉', ['🚶', 'Gehen']],
+    88: [],
+    89: [['💴', 'yen'], '☯️'],
+    90: [['⚡️', 'zappen']]
   },
   'en-CA': {
     65: [['🍎', 'Apple'], '👽', '⚓️'],
@@ -36,7 +49,20 @@ const EMOJIS = {
     74: [['🤹🏼‍♀️', 'juggler'], '👖', ['🕹️', 'joystick']],
     75: [['🔪', 'knife'], '🔑'],
     76: ['🦁', '🦎', '🐆'],
-    77: [['🌝', 'moon'], ['📫', 'mailbox'], '🍈', '👄']
+    77: [['🌝', 'moon'], ['📫', 'mailbox'], '🍈', '👄'],
+    78: ['👃', ['🎶', 'notes']],
+    79: ['🐙', '👌'],
+    80: ['🥞', '🍐', ['🥘', 'pot']],
+    81: [['👸🏻', 'queen'], '🇶🇦', ['❓', 'question mark']],
+    82: ['🐇', '🤖', '♻️'],
+    83: ['🐍', '🤳', '🥗', ['⭐️', 'star']],
+    84: ['🦃', '🐯', '🌮', '🐅'],
+    85: ['☂️', '🆙', '🦄'],
+    86: ['🎻', '🏐', ['🌋', 'volcano']],
+    87: ['🌊', '🍉', ['🚶', 'walking']],
+    88: [],
+    89: [['💴', 'yen'], '☯️'],
+    90: [['⚡️', 'zap']]
   },
   'fr-CA': {
     65: ['⚓️', '🦅'],
@@ -52,18 +78,32 @@ const EMOJIS = {
       ['🏒', 'bâton de hockey'],
       ['🍦', 'crème glacée'],
       ['🔪', 'couteau'],
-      '🔑'
+      '🔑',
+      '🥞'
     ],
-    68: [['💃', 'dansant']],
-    69: [['🥅', 'filet de hockey'], '👣'],
-    70: ['🍟', '👻'],
+    68: [['💃', 'dansant'], '🦃'],
+    69: ['👣'],
+    70: [['🥅', 'filet de hockey'], '🍟', '👻'],
     71: ['🦍'],
     72: ['🐹', '🌺'],
     73: [],
     74: [['🤹🏼‍♀️', 'Jongleur'], '👖'],
     75: [],
-    76: ['🦁', '🦎', '🐆'],
-    77: ['🍈']
+    76: ['🦁', '🦎', '🐆', '🐇', '🦄'],
+    77: ['🍈', ['🚶', 'marche']],
+    78: ['👃', ['🎶', 'note de musique']],
+    79: ['🐙', '👌'],
+    80: ['🥞', '🍐', ['🥘', 'pot'], '☂️'],
+    81: ['🇶🇦'],
+    82: ['🤖', '♻️'],
+    83: ['🐍', '🤳', '🥗', '🆙'],
+    84: ['🐯', '🌮', '🐅'],
+    85: [],
+    86: ['🎻', '🏐', ['🌋', 'volcan'], '🌊'],
+    87: ['🍉'],
+    88: [],
+    89: [['💴', 'yen'], '☯️'],
+    90: [['⚡️', 'zap']]
   }
 };
 
@@ -91,19 +131,19 @@ const keys = {
   75: { letter: 'k' },
   76: { letter: 'l' },
   77: { letter: 'm' },
-  78: { letter: 'n', emojis: ['👃', ['🎶', 'notes']] },
-  79: { letter: 'o', emojis: ['🐙', '👌'] },
-  80: { letter: 'p', emojis: ['🥞', '🍐', ['🥘', 'pot']] },
-  81: { letter: 'q', emojis: [['👸🏻', 'queen'], '🇶🇦', ['❓', 'question mark']] },
-  82: { letter: 'r', emojis: ['🐇', '🤖', '♻️'] },
-  83: { letter: 's', emojis: ['🐍', '🤳', '🥗', ['⭐️', 'star']] },
-  84: { letter: 't', emojis: ['🦃', '🐯', '🌮', '🐅'] },
-  85: { letter: 'u', emojis: ['☂️', '🆙', '🦄'] },
-  86: { letter: 'v', emojis: ['🎻', '🏐', ['🌋', 'volcano']] },
-  87: { letter: 'w', emojis: ['🌊', '🍉', ['🚶', 'walking']] },
-  88: { letter: 'x', emojis: [] },
-  89: { letter: 'y', emojis: [['💴', 'yen'], '☯️'] },
-  90: { letter: 'z', emojis: ['🦓', ['⚡️', 'zap']] }
+  78: { letter: 'n' },
+  79: { letter: 'o' },
+  80: { letter: 'p' },
+  81: { letter: 'q' },
+  82: { letter: 'r' },
+  83: { letter: 's' },
+  84: { letter: 't' },
+  85: { letter: 'u' },
+  86: { letter: 'v' },
+  87: { letter: 'w' },
+  88: { letter: 'x' },
+  89: { letter: 'y' },
+  90: { letter: 'z' }
 };
 
 injectGlobal`
@@ -150,6 +190,42 @@ const Letters = styled.span`
 // en-CA
 // de
 
+const Language = styled.h3`
+  text-align: left;
+  width: 100%;
+  font-size: 3rem;
+  color: ${props => (props.selected ? '#2d2d34' : 'rgba(0,0,0,0.2)')};
+
+  &:hover {
+    color: #7c7c8e;
+    cursor: pointer;
+  }
+`;
+
+const Languages = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  padding: 4rem;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+
+  &:hover {
+    ${Language} {
+      opacity: 1;
+    }
+  }
+
+  ${Language} {
+    opacity: 0.75;
+  }
+`;
+
 class App extends Component {
   state = { emoji: '', letters: '', lang: 'fr-CA' };
 
@@ -157,7 +233,8 @@ class App extends Component {
     this.key = fromEvent(document, 'keydown')
       .pipe(filter(({ keyCode }) => keyCode in keys && !synth.speaking))
       .subscribe(({ keyCode }) => {
-        const { letter, emojis } = keys[keyCode];
+        const { letter } = keys[keyCode];
+        const emojis = EMOJIS[this.state.lang][keyCode];
         let text;
         let emoji = emojis[Math.floor(Math.random() * emojis.length)];
 
@@ -187,6 +264,8 @@ class App extends Component {
       });
   }
 
+  changeLangTo = lang => () => this.setState({ lang });
+
   componentWillUnmount() {
     this.key && this.key.unsubscribe();
   }
@@ -201,6 +280,21 @@ class App extends Component {
           {this.state.emoji}
         </Emoji>
         <Letters>{this.state.letters}</Letters>
+        <Languages>
+          {[
+            { label: 'English', key: 'en-CA' },
+            { label: 'Français', key: 'fr-CA' },
+            { label: 'Deutsch', key: 'de' }
+          ].map(({ label, key }) => (
+            <Language
+              key={key}
+              selected={key === this.state.lang}
+              onClick={this.changeLangTo(key)}
+            >
+              {label}
+            </Language>
+          ))}
+        </Languages>
       </Container>
     );
   }
