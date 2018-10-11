@@ -236,11 +236,15 @@ class App extends Component {
         const { letter } = keys[keyCode];
         const emojis = EMOJIS[this.state.lang][keyCode];
         let text;
-        let emoji = emojis[Math.floor(Math.random() * emojis.length)];
+        let emoji;
 
-        if (Array.isArray(emoji)) {
-          text = emoji[1];
-          emoji = emoji[0];
+        if (emojis) {
+          emoji = emojis[Math.floor(Math.random() * emojis.length)];
+
+          if (Array.isArray(emoji)) {
+            text = emoji[1];
+            emoji = emoji[0];
+          }
         }
 
         this.setState(
@@ -275,9 +279,8 @@ class App extends Component {
   render() {
     return (
       <Container>
-        {!(this.state.emoji && this.state.letters) && (
-          <Emoji>Press a key!</Emoji>
-        )}
+        {this.state.emoji === '' &&
+          this.state.letters === '' && <Emoji>Press a key!</Emoji>}
         <Emoji role="img" aria-label="emoji">
           {this.state.emoji}
         </Emoji>
