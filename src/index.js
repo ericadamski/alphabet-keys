@@ -7,46 +7,143 @@ import * as serviceWorker from './serviceWorker';
 
 const synth = window.speechSynthesis;
 
-const keys = {
-  48: { letter: '0', emojis: [] },
-  49: { letter: '1', emojis: [] },
-  50: { letter: '2', emojis: [] },
-  51: { letter: '3', emojis: [] },
-  52: { letter: '4', emojis: [] },
-  53: { letter: '5', emojis: [] },
-  54: { letter: '6', emojis: [] },
-  55: { letter: '7', emojis: [] },
-  56: { letter: '8', emojis: [] },
-  57: { letter: '9', emojis: [] },
-  65: { letter: 'a', emojis: [['🍎', 'apple'], '👽', '⚓️'] },
-  66: { letter: 'b', emojis: ['🍌', '👶', '🦇', '🐝'] },
-  67: { letter: 'c', emojis: ['🐄', '🐱', '🐈', ['🤠', 'cowboy'], '🛶'] },
-  68: { letter: 'd', emojis: ['🐶', ['💃', 'dancing'], '🦌'] },
-  69: { letter: 'e', emojis: ['🥚', '👁️', '🦅'] },
-  70: { letter: 'f', emojis: ['🐸', '🍟', '👣'] },
-  71: { letter: 'g', emojis: ['🍇', '👻', '🦍'] },
-  72: {
-    letter: 'h',
-    emojis: [['🥅', 'hockey net'], ['🏒', 'hockey stick'], '🐹', '🌺']
+const EMOJIS = {
+  de: {
+    65: [['🍎', 'Äpfel'], '👽', '⚓️', '👁️', '🦅', ['📫', 'Breifkasten']],
+    66: ['🍌', '👶', '🐝', '🍐'],
+    67: [],
+    68: [],
+    69: ['🥚', '🦎', '🦄'],
+    70: ['🐸', '🍟', '👣'],
+    71: ['👻', '🦍', '🎻'],
+    72: [['🥅', 'Hockey-Netz'], ['🏒', 'Hockeyschläger'], '🐹', '🌺', '🐇'],
+    73: ['🐙'],
+    74: [['🤹🏼‍♀️', 'Jongleur'], '👖', ['🕹️', 'joystick']],
+    75: [],
+    76: ['🦁', '🐆'],
+    77: [['🌝', 'Mond'], '🍈', '👄', ['🎶', 'Musiknoten']],
+    78: ['👃'],
+    79: ['🐙', '👌'],
+    80: ['🥞'],
+    81: ['🇶🇦'],
+    82: ['🤖', '♻️', '☂️'],
+    83: ['🐍', '🤳', '🥗', ['⭐️', 'Stern']],
+    84: ['🦃', '🐯', '🌮', '🐅'],
+    85: [],
+    86: ['🏐', ['🌋', 'Vulkan']],
+    87: ['🌊', '🍉', ['🚶', 'Gehen']],
+    88: [],
+    89: [['💴', 'yen'], '☯️'],
+    90: [['⚡️', 'zappen']]
   },
-  73: { letter: 'i', emojis: [['🍦', 'ice cream']] },
-  74: { letter: 'j', emojis: [['🤹🏼‍♀️', 'juggler'], '👖', ['🕹️', 'joystick']] },
-  75: { letter: 'k', emojis: [['🔪', 'knife'], '🔑'] },
-  76: { letter: 'l', emojis: ['🦁', '🦎', '🐆'] },
-  77: { letter: 'm', emojis: [['🌝', 'moon'], ['📫', 'mailbox'], '🍈', '👄'] },
-  78: { letter: 'n', emojis: ['👃', ['🎶', 'notes']] },
-  79: { letter: 'o', emojis: ['🐙', '👌'] },
-  80: { letter: 'p', emojis: ['🥞', '🍐', ['🥘', 'pot']] },
-  81: { letter: 'q', emojis: [['👸🏻', 'queen'], '🇶🇦', ['❓', 'question mark']] },
-  82: { letter: 'r', emojis: ['🐇', '🤖', '♻️'] },
-  83: { letter: 's', emojis: ['🐍', '🤳', '🥗', ['⭐️', 'star']] },
-  84: { letter: 't', emojis: ['🦃', '🐯', '🌮', '🐅'] },
-  85: { letter: 'u', emojis: ['☂️', '🆙', '🦄'] },
-  86: { letter: 'v', emojis: ['🎻', '🏐', ['🌋', 'volcano']] },
-  87: { letter: 'w', emojis: ['🌊', '🍉', ['🚶', 'walking']] },
-  88: { letter: 'x', emojis: [] },
-  89: { letter: 'y', emojis: [['💴', 'yen'], '☯️'] },
-  90: { letter: 'z', emojis: ['🦓', ['⚡️', 'zap']] }
+  'en-CA': {
+    65: [['🍎', 'Apple'], '👽', '⚓️'],
+    66: ['🍌', '👶', '🦇', '🐝'],
+    67: ['🐄', '🐱', '🐈', ['🤠', 'cowboy'], '🛶'],
+    68: ['🐶', ['💃', 'dancing'], '🦌'],
+    69: ['🥚', '👁️', '🦅'],
+    70: ['🐸', '🍟', '👣'],
+    71: ['🍇', '👻', '🦍'],
+    72: [['🥅', 'hockey net'], ['🏒', 'hockey stick'], '🐹', '🌺'],
+    73: [['🍦', 'ice cream']],
+    74: [['🤹🏼‍♀️', 'juggler'], '👖', ['🕹️', 'joystick']],
+    75: [['🔪', 'knife'], '🔑'],
+    76: ['🦁', '🦎', '🐆'],
+    77: [['🌝', 'moon'], ['📫', 'mailbox'], '🍈', '👄'],
+    78: ['👃', ['🎶', 'notes']],
+    79: ['🐙', '👌'],
+    80: ['🥞', '🍐', ['🥘', 'pot']],
+    81: [['👸🏻', 'queen'], '🇶🇦', ['❓', 'question mark']],
+    82: ['🐇', '🤖', '♻️'],
+    83: ['🐍', '🤳', '🥗', ['⭐️', 'star']],
+    84: ['🦃', '🐯', '🌮', '🐅'],
+    85: ['☂️', '🆙', '🦄'],
+    86: ['🎻', '🏐', ['🌋', 'volcano']],
+    87: ['🌊', '🍉', ['🚶', 'walking']],
+    88: [],
+    89: [['💴', 'yen'], '☯️'],
+    90: [['⚡️', 'zap']]
+  },
+  'fr-CA': {
+    65: ['⚓️', '🦅'],
+    66: ['🍌', '👶', '🐝', '👄', ['📫', 'boites aux lettres']],
+    67: [
+      '🐶',
+      '🐱',
+      '🐈',
+      '🦇',
+      '🛶',
+      ['🤠', 'cow-boy'],
+      '🦌',
+      ['🏒', 'bâton de hockey'],
+      ['🍦', 'crème glacée'],
+      ['🔪', 'couteau'],
+      '🔑',
+      '🥞'
+    ],
+    68: [['💃', 'dansant'], '🦃'],
+    69: ['👣'],
+    70: [['🥅', 'filet de hockey'], '🍟', '👻'],
+    71: ['🦍'],
+    72: ['🐹', '🌺'],
+    73: [],
+    74: [['🤹🏼‍♀️', 'Jongleur'], '👖'],
+    75: [],
+    76: ['🦁', '🦎', '🐆', '🐇', '🦄'],
+    77: ['🍈', ['🚶', 'marche']],
+    78: ['👃', ['🎶', 'note de musique']],
+    79: ['🐙', '👌'],
+    80: ['🥞', '🍐', ['🥘', 'pot'], '☂️'],
+    81: ['🇶🇦'],
+    82: ['🤖', '♻️'],
+    83: ['🐍', '🤳', '🥗', '🆙'],
+    84: ['🐯', '🌮', '🐅'],
+    85: [],
+    86: ['🎻', '🏐', ['🌋', 'volcan'], '🌊'],
+    87: ['🍉'],
+    88: [],
+    89: [['💴', 'yen'], '☯️'],
+    90: [['⚡️', 'zap']]
+  }
+};
+
+const keys = {
+  48: { letter: '0' },
+  49: { letter: '1' },
+  50: { letter: '2' },
+  51: { letter: '3' },
+  52: { letter: '4' },
+  53: { letter: '5' },
+  54: { letter: '6' },
+  55: { letter: '7' },
+  56: { letter: '8' },
+  57: { letter: '9' },
+  65: { letter: 'a' },
+  66: { letter: 'b' },
+  67: { letter: 'c' },
+  68: { letter: 'd' },
+  69: { letter: 'e' },
+  70: { letter: 'f' },
+  71: { letter: 'g' },
+  72: { letter: 'h' },
+  73: { letter: 'i' },
+  74: { letter: 'j' },
+  75: { letter: 'k' },
+  76: { letter: 'l' },
+  77: { letter: 'm' },
+  78: { letter: 'n' },
+  79: { letter: 'o' },
+  80: { letter: 'p' },
+  81: { letter: 'q' },
+  82: { letter: 'r' },
+  83: { letter: 's' },
+  84: { letter: 't' },
+  85: { letter: 'u' },
+  86: { letter: 'v' },
+  87: { letter: 'w' },
+  88: { letter: 'x' },
+  89: { letter: 'y' },
+  90: { letter: 'z' }
 };
 
 injectGlobal`
@@ -88,33 +185,92 @@ const Letters = styled.span`
   font-size: 10rem;
 `;
 
+// Languages
+// fr-CA
+// en-CA
+// de
+
+const Language = styled.h3`
+  text-align: left;
+  width: 100%;
+  font-size: 3rem;
+  color: ${props => (props.selected ? '#2d2d34' : 'rgba(0,0,0,0.2)')};
+
+  &:hover {
+    color: #7c7c8e;
+    cursor: pointer;
+  }
+`;
+
+const Languages = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  padding: 4rem;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+
+  &:hover {
+    ${Language} {
+      opacity: 1;
+    }
+  }
+
+  ${Language} {
+    opacity: 0.75;
+  }
+`;
+
 class App extends Component {
-  state = { emoji: '', letters: '' };
+  state = { emoji: '', letters: '', lang: 'fr-CA' };
 
   componentDidMount() {
     this.key = fromEvent(document, 'keydown')
       .pipe(filter(({ keyCode }) => keyCode in keys && !synth.speaking))
       .subscribe(({ keyCode }) => {
-        const { letter, emojis } = keys[keyCode];
+        const { letter } = keys[keyCode];
+        const emojis = EMOJIS[this.state.lang][keyCode];
         let text;
-        let emoji = emojis[Math.floor(Math.random() * emojis.length)];
+        let emoji;
 
-        if (Array.isArray(emoji)) {
-          text = emoji[1];
-          emoji = emoji[0];
+        if (emojis) {
+          emoji = emojis[Math.floor(Math.random() * emojis.length)];
+
+          if (Array.isArray(emoji)) {
+            text = emoji[1];
+            emoji = emoji[0];
+          }
         }
 
         this.setState(
           {
             emoji,
-            letters: isNaN(+letter) ? `${letter.toUpperCase()} ${letter}` : ''
+            letters: isNaN(+letter)
+              ? `${letter.toUpperCase()} ${letter}`
+              : letter
           },
-          () => synth.speak(new SpeechSynthesisUtterance(letter)),
-          emoji !== undefined &&
-            synth.speak(new SpeechSynthesisUtterance(text || emoji))
+          () => {
+            [
+              new SpeechSynthesisUtterance(letter),
+              emoji !== undefined && new SpeechSynthesisUtterance(text || emoji)
+            ]
+              .filter(Boolean)
+              .forEach(utterance => {
+                utterance.lang = this.state.lang;
+
+                synth.speak(utterance);
+              });
+          }
         );
       });
   }
+
+  changeLangTo = lang => () => this.setState({ lang });
 
   componentWillUnmount() {
     this.key && this.key.unsubscribe();
@@ -123,11 +279,27 @@ class App extends Component {
   render() {
     return (
       <Container>
-        {!this.state.emoji && <Emoji>Press a key!</Emoji>}
+        {this.state.emoji === '' &&
+          this.state.letters === '' && <Emoji>Press a key!</Emoji>}
         <Emoji role="img" aria-label="emoji">
           {this.state.emoji}
         </Emoji>
         <Letters>{this.state.letters}</Letters>
+        <Languages>
+          {[
+            { label: 'English', key: 'en-CA' },
+            { label: 'Français', key: 'fr-CA' },
+            { label: 'Deutsch', key: 'de' }
+          ].map(({ label, key }) => (
+            <Language
+              key={key}
+              selected={key === this.state.lang}
+              onClick={this.changeLangTo(key)}
+            >
+              {label}
+            </Language>
+          ))}
+        </Languages>
       </Container>
     );
   }
