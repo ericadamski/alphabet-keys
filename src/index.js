@@ -1,73 +1,73 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-import { fromEvent } from 'rxjs';
+import ReactDOM, { findDOMNode } from 'react-dom';
+import { Subject } from 'rxjs';
 import { filter } from 'rxjs/operators';
-import styled, { injectGlobal } from 'styled-components';
+import styled, { css, injectGlobal } from 'styled-components';
 import * as serviceWorker from './serviceWorker';
 
 const synth = window.speechSynthesis;
 
 const EMOJIS = {
   de: {
-    65: [['🍎', 'Äpfel'], '👽', '⚓️', '👁️', '🦅', ['📫', 'Breifkasten']],
-    66: ['🍌', '👶', '🐝', '🍐'],
-    67: [],
-    68: [],
-    69: ['🥚', '🦎', '🦄'],
-    70: ['🐸', '🍟', '👣'],
-    71: ['👻', '🦍', '🎻'],
-    72: [['🥅', 'Hockey-Netz'], ['🏒', 'Hockeyschläger'], '🐹', '🌺', '🐇'],
-    73: ['🐙'],
-    74: [['🤹🏼‍♀️', 'Jongleur'], '👖', ['🕹️', 'joystick']],
-    75: [],
-    76: ['🦁', '🐆'],
-    77: [['🌝', 'Mond'], '🍈', '👄', ['🎶', 'Musiknoten']],
-    78: ['👃'],
-    79: ['🐙', '👌'],
-    80: ['🥞'],
-    81: ['🇶🇦'],
-    82: ['🤖', '♻️', '☂️'],
-    83: ['🐍', '🤳', '🥗', ['⭐️', 'Stern']],
-    84: ['🦃', '🐯', '🌮', '🐅'],
-    85: [],
-    86: ['🏐', ['🌋', 'Vulkan']],
-    87: ['🌊', '🍉', ['🚶', 'Gehen']],
-    88: [],
-    89: [['💴', 'yen'], '☯️'],
-    90: [['⚡️', 'zappen']]
+    97: [['🍎', 'Äpfel'], '👽', '⚓️', '👁️', '🦅', ['📫', 'Breifkasten']],
+    98: ['🍌', '👶', '🐝', '🍐'],
+    99: [],
+    100: [],
+    101: ['🥚', '🦎', '🦄'],
+    102: ['🐸', '🍟', '👣'],
+    103: ['👻', '🦍', '🎻'],
+    104: [['🥅', 'Hockey-Netz'], ['🏒', 'Hockeyschläger'], '🐹', '🌺', '🐇'],
+    105: ['🐙'],
+    106: [['🤹🏼‍♀️', 'Jongleur'], '👖', ['🕹️', 'joystick']],
+    107: [],
+    108: ['🦁', '🐆'],
+    109: [['🌝', 'Mond'], '🍈', '👄', ['🎶', 'Musiknoten']],
+    110: ['👃'],
+    111: ['🐙', '👌'],
+    112: ['🥞'],
+    113: ['🇶🇦'],
+    114: ['🤖', '♻️', '☂️'],
+    115: ['🐍', '🤳', '🥗', ['⭐️', 'Stern']],
+    116: ['🦃', '🐯', '🌮', '🐅'],
+    117: [],
+    118: ['🏐', ['🌋', 'Vulkan']],
+    119: ['🌊', '🍉', ['🚶', 'Gehen']],
+    120: [],
+    121: [['💴', 'yen'], '☯️'],
+    122: [['⚡️', 'zappen']]
   },
   'en-CA': {
-    65: [['🍎', 'Apple'], '👽', '⚓️'],
-    66: ['🍌', '👶', '🦇', '🐝'],
-    67: ['🐄', '🐱', '🐈', ['🤠', 'cowboy'], '🛶'],
-    68: ['🐶', ['💃', 'dancing'], '🦌'],
-    69: ['🥚', '👁️', '🦅'],
-    70: ['🐸', '🍟', '👣'],
-    71: ['🍇', '👻', '🦍'],
-    72: [['🥅', 'hockey net'], ['🏒', 'hockey stick'], '🐹', '🌺'],
-    73: [['🍦', 'ice cream']],
-    74: [['🤹🏼‍♀️', 'juggler'], '👖', ['🕹️', 'joystick']],
-    75: [['🔪', 'knife'], '🔑'],
-    76: ['🦁', '🦎', '🐆'],
-    77: [['🌝', 'moon'], ['📫', 'mailbox'], '🍈', '👄'],
-    78: ['👃', ['🎶', 'notes']],
-    79: ['🐙', '👌'],
-    80: ['🥞', '🍐', ['🥘', 'pot']],
-    81: [['👸🏻', 'queen'], '🇶🇦', ['❓', 'question mark']],
-    82: ['🐇', '🤖', '♻️'],
-    83: ['🐍', '🤳', '🥗', ['⭐️', 'star']],
-    84: ['🦃', '🐯', '🌮', '🐅'],
-    85: ['☂️', '🆙', '🦄'],
-    86: ['🎻', '🏐', ['🌋', 'volcano']],
-    87: ['🌊', '🍉', ['🚶', 'walking']],
-    88: [],
-    89: [['💴', 'yen'], '☯️'],
-    90: [['⚡️', 'zap']]
+    97: [['🍎', 'Apple'], '👽', '⚓️'],
+    98: ['🍌', '👶', '🦇', '🐝'],
+    99: ['🐄', '🐱', '🐈', ['🤠', 'cowboy'], '🛶'],
+    100: ['🐶', ['💃', 'dancing'], '🦌'],
+    101: ['🥚', '👁️', '🦅'],
+    102: ['🐸', '🍟', '👣'],
+    103: ['🍇', '👻', '🦍'],
+    104: [['🥅', 'hockey net'], ['🏒', 'hockey stick'], '🐹', '🌺'],
+    105: [['🍦', 'ice cream']],
+    106: [['🤹🏼‍♀️', 'juggler'], '👖', ['🕹️', 'joystick']],
+    107: [['🔪', 'knife'], '🔑'],
+    108: ['🦁', '🦎', '🐆'],
+    109: [['🌝', 'moon'], ['📫', 'mailbox'], '🍈', '👄'],
+    110: ['👃', ['🎶', 'notes']],
+    111: ['🐙', '👌'],
+    112: ['🥞', '🍐', ['🥘', 'pot']],
+    113: [['👸🏻', 'queen'], '🇶🇦', ['❓', 'question mark']],
+    114: ['🐇', '🤖', '♻️'],
+    115: ['🐍', '🤳', '🥗', ['⭐️', 'star']],
+    116: ['🦃', '🐯', '🌮', '🐅'],
+    117: ['☂️', '🆙', '🦄'],
+    118: ['🎻', '🏐', ['🌋', 'volcano']],
+    119: ['🌊', '🍉', ['🚶', 'walking']],
+    120: [],
+    121: [['💴', 'yen'], '☯️'],
+    122: [['⚡️', 'zap']]
   },
   'fr-CA': {
-    65: ['⚓️', '🦅'],
-    66: ['🍌', '👶', '🐝', '👄', ['📫', 'boites aux lettres']],
-    67: [
+    97: ['⚓️', '🦅'],
+    98: ['🍌', '👶', '🐝', '👄', ['📫', 'boites aux lettres']],
+    99: [
       '🐶',
       '🐱',
       '🐈',
@@ -75,35 +75,35 @@ const EMOJIS = {
       '🛶',
       ['🤠', 'cow-boy'],
       '🦌',
-      ['🏒', 'bâton de hockey'],
+      ['🏒', 'bâton  hockey'],
       ['🍦', 'crème glacée'],
       ['🔪', 'couteau'],
       '🔑',
       '🥞'
     ],
-    68: [['💃', 'dansant'], '🦃'],
-    69: ['👣'],
-    70: [['🥅', 'filet de hockey'], '🍟', '👻'],
-    71: ['🦍'],
-    72: ['🐹', '🌺'],
-    73: [],
-    74: [['🤹🏼‍♀️', 'Jongleur'], '👖'],
-    75: [],
-    76: ['🦁', '🦎', '🐆', '🐇', '🦄'],
-    77: ['🍈', ['🚶', 'marche']],
-    78: ['👃', ['🎶', 'note de musique']],
-    79: ['🐙', '👌'],
-    80: ['🥞', '🍐', ['🥘', 'pot'], '☂️'],
-    81: ['🇶🇦'],
-    82: ['🤖', '♻️'],
-    83: ['🐍', '🤳', '🥗', '🆙'],
-    84: ['🐯', '🌮', '🐅'],
-    85: [],
-    86: ['🎻', '🏐', ['🌋', 'volcan'], '🌊'],
-    87: ['🍉'],
-    88: [],
-    89: [['💴', 'yen'], '☯️'],
-    90: [['⚡️', 'zap']]
+    100: [['💃', 'dansant'], '🦃'],
+    101: ['👣'],
+    102: [['🥅', 'filet de hockey'], '🍟', '👻'],
+    103: ['🦍'],
+    104: ['🐹', '🌺'],
+    105: [],
+    106: [['🤹🏼‍♀️', 'Jongleur'], '👖'],
+    107: [],
+    108: ['🦁', '🦎', '🐆', '🐇', '🦄'],
+    109: ['🍈', ['🚶', 'marche']],
+    110: ['👃', ['🎶', 'note de musique']],
+    111: ['🐙', '👌'],
+    112: ['🥞', '🍐', ['🥘', 'pot'], '☂️'],
+    113: ['🇶🇦'],
+    114: ['🤖', '♻️'],
+    115: ['🐍', '🤳', '🥗', '🆙'],
+    116: ['🐯', '🌮', '🐅'],
+    117: [],
+    118: ['🎻', '🏐', ['🌋', 'volcan'], '🌊'],
+    119: ['🍉'],
+    120: [],
+    121: [['💴', 'yen'], '☯️'],
+    122: [['⚡️', 'zap']]
   }
 };
 
@@ -118,33 +118,41 @@ const keys = {
   55: { letter: '7' },
   56: { letter: '8' },
   57: { letter: '9' },
-  65: { letter: 'a' },
-  66: { letter: 'b' },
-  67: { letter: 'c' },
-  68: { letter: 'd' },
-  69: { letter: 'e' },
-  70: { letter: 'f' },
-  71: { letter: 'g' },
-  72: { letter: 'h' },
-  73: { letter: 'i' },
-  74: { letter: 'j' },
-  75: { letter: 'k' },
-  76: { letter: 'l' },
-  77: { letter: 'm' },
-  78: { letter: 'n' },
-  79: { letter: 'o' },
-  80: { letter: 'p' },
-  81: { letter: 'q' },
-  82: { letter: 'r' },
-  83: { letter: 's' },
-  84: { letter: 't' },
-  85: { letter: 'u' },
-  86: { letter: 'v' },
-  87: { letter: 'w' },
-  88: { letter: 'x' },
-  89: { letter: 'y' },
-  90: { letter: 'z' }
+  97: { letter: 'a' },
+  98: { letter: 'b' },
+  99: { letter: 'c' },
+  100: { letter: 'd' },
+  101: { letter: 'e' },
+  102: { letter: 'f' },
+  103: { letter: 'g' },
+  104: { letter: 'h' },
+  105: { letter: 'i' },
+  106: { letter: 'j' },
+  107: { letter: 'k' },
+  108: { letter: 'l' },
+  109: { letter: 'm' },
+  110: { letter: 'n' },
+  111: { letter: 'o' },
+  112: { letter: 'p' },
+  113: { letter: 'q' },
+  114: { letter: 'r' },
+  115: { letter: 's' },
+  116: { letter: 't' },
+  117: { letter: 'u' },
+  118: { letter: 'v' },
+  119: { letter: 'w' },
+  120: { letter: 'x' },
+  121: { letter: 'y' },
+  122: { letter: 'z' }
 };
+
+function media(query) {
+  return css`
+    @media screen and (max-width: 800px) {
+      ${query};
+    }
+  `;
+}
 
 injectGlobal`
   /* latin */
@@ -179,16 +187,17 @@ const Emoji = styled.span`
   font-size: 10rem;
   line-height: 5rem;
   margin: 2rem;
+
+  ${media(`
+    font-size: 4rem;
+    line-height: 2rem;
+    margin: 0;
+  `)};
 `;
 
 const Letters = styled.span`
   font-size: 10rem;
 `;
-
-// Languages
-// fr-CA
-// en-CA
-// de
 
 const Language = styled.h3`
   text-align: left;
@@ -215,6 +224,10 @@ const Languages = styled.div`
   justify-content: center;
   z-index: 1;
 
+  ${media(`
+    display: none;
+  `)};
+
   &:hover {
     ${Language} {
       opacity: 1;
@@ -226,13 +239,19 @@ const Languages = styled.div`
   }
 `;
 
+const Reader = styled.textarea`
+  position: absolute;
+  top: -100vh;
+`;
+
 class App extends Component {
   state = { emoji: '', letters: '', lang: 'fr-CA' };
+  read$ = new Subject();
 
   componentDidMount() {
-    this.key = fromEvent(document, 'keydown')
-      .pipe(filter(({ keyCode }) => keyCode in keys && !synth.speaking))
-      .subscribe(({ keyCode }) => {
+    this.key = this.read$
+      .pipe(filter(keyCode => keyCode in keys && !synth.speaking))
+      .subscribe(keyCode => {
         const { letter } = keys[keyCode];
         const emojis = EMOJIS[this.state.lang][keyCode];
         let text;
@@ -271,6 +290,11 @@ class App extends Component {
   }
 
   changeLangTo = lang => () => this.setState({ lang });
+  focusReader = () => {
+    let node;
+
+    this.reader && (node = findDOMNode(this.reader)) && node.focus();
+  };
 
   componentWillUnmount() {
     this.key && this.key.unsubscribe();
@@ -278,7 +302,15 @@ class App extends Component {
 
   render() {
     return (
-      <Container>
+      <Container onClick={this.focusReader}>
+        <Reader
+          ref={n => (this.reader = n)}
+          onChange={({ target }) =>
+            this.read$.next(
+              target.value.toLowerCase().charCodeAt(target.value.length - 1)
+            )
+          }
+        />
         {this.state.emoji === '' &&
           this.state.letters === '' && <Emoji>Press a key!</Emoji>}
         <Emoji role="img" aria-label="emoji">
