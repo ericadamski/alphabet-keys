@@ -17,3 +17,6 @@ COPY . .
 # Build the app and move the resulting build to the `/public` directory
 RUN yarn build
 RUN mv ./build /public
+
+EXPOSE 3000
+CMD ["yarn", "start"]
