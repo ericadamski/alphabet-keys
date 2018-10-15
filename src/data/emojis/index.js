@@ -7,21 +7,38 @@ import pt_BR from './pt-BR';
 import no_NB from './no-NB';
 import hi from './in-hi';
 
+const allLangs = [
+  en_CA,
+  fr_CA,
+  fr_FR,
+  de,
+  sv,
+  pt_BR,
+  no_NB,
+  hi
+];
+
+export const SUPPORTED_LANGS = allLangs.map(
+  langData => ({
+    label: langData.meta.label,
+    key: Object.keys(langData.data)[0]
+  })
+);
 
 export default {
-    // english
-    ...en_CA,
-    // french
-    ...fr_CA,
-    ...fr_FR,
-    // german
-    ...de,
-    // swedish
-    ...sv,
-    // portuguese (Brazil)
-    ...pt_BR,
-    // norwegian
-    ...no_NB,
-    // Indian hindi
-    ...hi
+  // english
+  ...en_CA.data,
+  // french
+  ...fr_CA.data,
+  ...fr_FR.data,
+  // german
+  ...de.data,
+  // swedish
+  ...sv.data,
+  // portuguese (Brazil)
+  ...pt_BR.data,
+  // norwegian
+  ...no_NB.data,
+  // Indian hindi
+  ...hi.data
 };

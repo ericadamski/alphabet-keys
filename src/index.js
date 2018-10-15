@@ -5,7 +5,7 @@ import { filter } from 'rxjs/operators';
 import styled, { css, injectGlobal } from 'styled-components';
 
 import KEYS from './data/keys';
-import EMOJIS from './data/emojis';
+import EMOJIS, { SUPPORTED_LANGS } from './data/emojis';
 import * as serviceWorker from './serviceWorker';
 
 const synth = window.speechSynthesis;
@@ -98,11 +98,11 @@ const Languages = styled.div`
     left: 0;
     transform: translate-X(-50%);
     height: 15px;
-    width: 300px;
 
     h3 {
       font-size: 1rem;
       text-align: center;
+      margin-right: 10px;
     }
   `)};
 
@@ -197,13 +197,7 @@ class App extends Component {
         </Emoji>
         <Letters>{this.state.letters}</Letters>
         <Languages>
-          {[
-            { label: 'English', key: 'en-CA' },
-            { label: 'Français', key: 'fr-CA' },
-            { label: 'Deutsch', key: 'de' }, 
-            { label: 'Swedish', key: 'sv' },
-            { label: 'Português', key: 'pt-BR' },
-          ].map(({ label, key }) => (
+          {SUPPORTED_LANGS.map(({ label, key }) => (
             <Language
               key={key}
               selected={key === this.state.lang}
