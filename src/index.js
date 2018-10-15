@@ -189,7 +189,7 @@ const Emoji = styled.span`
   margin: 2rem;
 
   ${media(`
-    font-size: 4rem;
+    font-size: 3rem;
     line-height: 2rem;
     margin: 0;
   `)};
@@ -225,7 +225,21 @@ const Languages = styled.div`
   z-index: 1;
 
   ${media(`
-    display: none;
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+    padding: 10px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translate-X(-50%);
+    height: 15px;
+    width: 300px;
+
+    h3 {
+      font-size: 1rem;
+      text-align: center;
+    }
   `)};
 
   &:hover {
