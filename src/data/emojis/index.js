@@ -11,7 +11,7 @@ export default {
     ...fr_CA,
     ...fr_FR,
     // german
-    ...de
+    ...de,
     // swedish
     ...sv
 };
