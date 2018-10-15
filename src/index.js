@@ -201,7 +201,8 @@ class App extends Component {
             { label: 'English', key: 'en-CA' },
             { label: 'Français', key: 'fr-CA' },
             { label: 'Deutsch', key: 'de' }, 
-            { label: 'Swedish', key: 'sv' }
+            { label: 'Swedish', key: 'sv' },
+            { label: 'Português', key: 'pt-BR' },
           ].map(({ label, key }) => (
             <Language
               key={key}

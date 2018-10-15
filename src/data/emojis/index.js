@@ -3,6 +3,7 @@ import fr_CA from './fr-CA';
 import fr_FR from './fr-FR';
 import de from './de';
 import sv from './sv';
+import pt_BR from './pt-BR';
 
 export default {
     // english
@@ -13,5 +14,7 @@ export default {
     // german
     ...de,
     // swedish
-    ...sv
+    ...sv,
+    // portuguese (Brazil)
+    ...pt_BR
 };
