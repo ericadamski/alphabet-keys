@@ -3,8 +3,10 @@ import fr_CA from './fr-CA';
 import fr_FR from './fr-FR';
 import de from './de';
 import sv from './sv';
+import pt_BR from './pt-BR';
 import no_NB from './no-NB';
 import hi from './in-hi';
+
 
 export default {
     // english
@@ -16,6 +18,8 @@ export default {
     ...de,
     // swedish
     ...sv,
+    // portuguese (Brazil)
+    ...pt_BR,
     // norwegian
     ...no_NB,
     // Indian hindi
