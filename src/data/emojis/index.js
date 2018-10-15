@@ -19,7 +19,7 @@ export default {
     // swedish
     ...sv,
     // portuguese (Brazil)
-    ...pt_BR
+    ...pt_BR,
     // norwegian
     ...no_NB,
     // Indian hindi
