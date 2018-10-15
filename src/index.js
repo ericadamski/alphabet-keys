@@ -134,7 +134,15 @@ const EMOJIS = {
     109: ['🍈', ['🚶', 'marche'], '⌚'],
     110: ['👃', ['🎶', 'note de musique']],
     111: [['👌', 'ok'], ['🖥️', 'ordinateur']],
-    112: [['🥞', 'pancake'], '🍐', ['🥘', 'pot'], '☂️', ['🐙', 'poulpe'], ['🍉', 'pastèque'], ['🐼', 'panda']],
+    112: [
+      ['🥞', 'pancake'],
+      '🍐',
+      ['🥘', 'pot'],
+      '☂️',
+      ['🐙', 'poulpe'],
+      ['🍉', 'pastèque'],
+      ['🐼', 'panda']
+    ],
     113: ['🇶🇦'],
     114: [['🤖', 'robot'], '♻️'],
     115: ['🐍', '🤳', '🥗', '🍣', ['🌲', 'sapin']],
@@ -359,6 +367,7 @@ class App extends Component {
     return (
       <Container onClick={this.focusReader}>
         <Reader
+          aria-label="A hidden input to allow use on mobile devices"
           ref={n => (this.reader = n)}
           onChange={({ target }) =>
             this.read$.next(
