@@ -4,6 +4,7 @@ import fr_FR from './fr-FR';
 import de from './de';
 import sv from './sv';
 import no_NB from './no-NB';
+import hi from './in-hi';
 
 export default {
     // english
@@ -16,5 +17,7 @@ export default {
     // swedish
     ...sv,
     // norwegian
-    ...no_NB
+    ...no_NB,
+    // Indian hindi
+    ...hi
 };
