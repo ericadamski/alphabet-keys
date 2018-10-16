@@ -7,6 +7,7 @@ import sv from './sv';
 import pt_BR from './pt-BR';
 import no_NB from './no-NB';
 import hi from './in-hi';
+import pl from './pl-PL';
 
 const allLangs = [
   en_CA,
@@ -17,6 +18,7 @@ const allLangs = [
   sv,
   pt_BR,
   no_NB,
+  pl,
   hi
 ];
 
@@ -43,6 +45,8 @@ export default {
   ...pt_BR.data,
   // norwegian
   ...no_NB.data,
+  // Polish
+  ...pl.data,
   // Indian hindi
   ...hi.data
 };
