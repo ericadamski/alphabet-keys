@@ -1,5 +1,9 @@
 export default {
-  'pt-BR': {
+  meta: {
+    label: 'Português (Brasil)'
+  },
+  data: {
+    'pt-BR': {
       97: [['⚓️', 'âncora'], ['🍍', 'abacaxi'], ['🚑', 'ambulância'], ['🐝', 'abelha'], ['🥜', 'amendoim']],
       98: [['🍌', 'banana'], ['👶', 'bebê'], ['🦋', 'borboleta'], ['🥔', 'batata'], ['🥦', 'brócolis'], ['🥖', 'baguete'], ['🥓', 'bacon'], ['🚲', 'bicicleta']],
       99: [['🦐', 'camarão'], ['🍫', 'chocolate'], ['☕', 'café'], ['🥄', 'colher'], ['🏠', 'casa'], ['🚗', 'carro'], ['🥕', 'cenoura'], ['🍄', 'cogumelo'], ['🐍', 'cobra'], ['🦉', 'coruja']],
@@ -25,5 +29,6 @@ export default {
       119: [],
       121: [['💴', 'yene'], ['☯️', 'yin e yang']],
       122: [['🦓', 'zebra'], ['🧟', 'zumbi']]
+    }
   }
 }
