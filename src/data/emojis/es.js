@@ -3,7 +3,7 @@ export default {
         label: 'Español'
     },
     data: {
-        'es-ES': {
+        'es': {
             97: [['🐿', 'ardilla'], ['⚓️', 'ancla'], ['🍍', 'ananá'], ['🚑', 'ambulancia'], ['🐝', 'abeja'], ['🥜', 'almendras']],
             98: [['🍌', 'banana'], ['👶', 'bebé'], ['🥔', 'batata'], ['🥦', 'brócoli'], ['🥖', 'baguette'], ['🥓', 'bacon'], ['🚲', 'bicicleta'], ['🦉', 'búho']],
             99: [['🦐', 'camarón'], ['🍫', 'chocolate'], ['🐊', 'cocodrilo'], ['☕', 'café'], ['🥄', 'cuchara'], ['🏠', 'casa'], ['🚗', 'carro']],

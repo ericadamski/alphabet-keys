@@ -1,5 +1,5 @@
 import en_CA from './en-CA';
-import es_ES from './es-ES';
+import es from './es';
 import fr_CA from './fr-CA';
 import fr_FR from './fr-FR';
 import de from './de';
@@ -10,7 +10,7 @@ import hi from './in-hi';
 
 const allLangs = [
   en_CA,
-  es_ES,
+  es,
   fr_CA,
   fr_FR,
   de,
@@ -31,7 +31,7 @@ export default {
   // english
   ...en_CA.data,
   // spanish
-  ...es_ES.data,
+  ...es.data,
   // french
   ...fr_CA.data,
   ...fr_FR.data,
