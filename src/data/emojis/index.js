@@ -1,4 +1,5 @@
 import en_CA from './en-CA';
+import es_ES from './es-ES';
 import fr_CA from './fr-CA';
 import fr_FR from './fr-FR';
 import de from './de';
@@ -9,6 +10,7 @@ import hi from './in-hi';
 
 const allLangs = [
   en_CA,
+  es_ES,
   fr_CA,
   fr_FR,
   de,
@@ -28,6 +30,8 @@ export const SUPPORTED_LANGS = allLangs.map(
 export default {
   // english
   ...en_CA.data,
+  // spanish
+  ...es_ES.data,
   // french
   ...fr_CA.data,
   ...fr_FR.data,
