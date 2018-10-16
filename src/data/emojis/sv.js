@@ -22,7 +22,7 @@ export default {
         ['🐸', 'groda'],
         ['🦍', 'gorilla'],
         ['🏐', 'garn'],
-        '🥘'
+        ['🥘', 'stekpanna']
       ],
       104: [
         ['🐶', 'hund'],
