@@ -3,8 +3,8 @@ import ReactDOM, { findDOMNode } from 'react-dom';
 import { Subject } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import styled, { css, injectGlobal } from 'styled-components';
-import EMOJIS, { SUPPORTED_LANGS } from './data/emojis';
 import KEYS from './data/keys';
+import EMOJIS, { SUPPORTED_LANGS } from './data/emojis';
 import * as serviceWorker from './serviceWorker';
 
 const synth = window.speechSynthesis;
@@ -74,12 +74,32 @@ const Language = styled.h3`
   }
 `;
 
+const LanguagesContainer = styled.div`
+  overflow: hidden;
+  height: 50%;
+  width: 30%;
+  position: absolute;
+  top: 5%;
+  left: 0px;
+
+  ${media(`
+    width: 100%;
+  `)}
+`;
+
 const Languages = styled.div`
   position: absolute;
   top: 0;
   left: 0;
   bottom: 0;
   padding: 4rem;
+
+  overflow-y: scroll;
+  right: -17px;
+  height: 100%;
+  -moz-box-sizing: border-box; 
+  -webkit-box-sizing: border-box; 
+  box-sizing: border-box;
 
   display: flex;
   flex-direction: column;
@@ -88,6 +108,7 @@ const Languages = styled.div`
   z-index: 1;
 
   ${media(`
+    width: 100%;
     display: flex;
     flex-flow: row;
     justify-content: space-between;
@@ -96,7 +117,9 @@ const Languages = styled.div`
     top: 0;
     left: 0;
     transform: translate-X(-50%);
-    height: 15px;
+    height: 60px;
+    overflow-y: hidden;
+    overflow-x: scroll;
 
     h3 {
       font-size: 1rem;
@@ -195,17 +218,19 @@ class App extends Component {
           {this.state.emoji}
         </Emoji>
         <Letters>{this.state.letters}</Letters>
-        <Languages>
-          {SUPPORTED_LANGS.map(({ label, key }) => (
-            <Language
-              key={key}
-              selected={key === this.state.lang}
-              onClick={this.changeLangTo(key)}
-            >
-              {label}
-            </Language>
-          ))}
-        </Languages>
+        <LanguagesContainer>
+          <Languages>
+            {SUPPORTED_LANGS.map(({ label, key }) => (
+              <Language
+                key={key}
+                selected={key === this.state.lang}
+                onClick={this.changeLangTo(key)}
+              >
+                {label}
+              </Language>
+            ))}
+          </Languages>
+        </LanguagesContainer>
       </Container>
     );
   }
