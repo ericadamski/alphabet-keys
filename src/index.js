@@ -146,7 +146,7 @@ const Reader = styled.textarea`
 `;
 
 class App extends Component {
-  state = { emoji: '', letters: '', lang: 'fr-CA' };
+  state = { emoji: '', letters: '', lang: 'en' };
   read$ = new Subject();
 
   componentDidMount() {
