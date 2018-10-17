@@ -3,7 +3,7 @@ export default {
     label: 'Norwegian'
   },
   data: {
-    'no-NB': {
+    'nb-NO': {
       97: [['⚓️', 'anker'], ['🍍', 'ananas'], ['🚑', 'ambulanse']],
       98: [['🍌', 'banan'], ['👶', 'baby'], ['🐙', 'blekksprut'], ['🐝', 'bie'], ['🌊', 'bølge']],
       99: ['🇨🇦', 'canada'],
