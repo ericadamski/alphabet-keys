@@ -3,7 +3,6 @@ import ReactDOM, { findDOMNode } from 'react-dom';
 import { Subject } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import styled, { css, injectGlobal } from 'styled-components';
-
 import KEYS from './data/keys';
 import EMOJIS, { SUPPORTED_LANGS } from './data/emojis';
 import * as serviceWorker from './serviceWorker';
