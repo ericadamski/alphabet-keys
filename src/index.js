@@ -3,9 +3,8 @@ import ReactDOM, { findDOMNode } from 'react-dom';
 import { Subject } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import styled, { css, injectGlobal } from 'styled-components';
-
-import KEYS from './data/keys';
 import EMOJIS, { SUPPORTED_LANGS } from './data/emojis';
+import KEYS from './data/keys';
 import * as serviceWorker from './serviceWorker';
 
 const synth = window.speechSynthesis;
@@ -123,7 +122,7 @@ const Reader = styled.textarea`
 `;
 
 class App extends Component {
-  state = { emoji: '', letters: '', lang: 'fr-CA' };
+  state = { emoji: '', letters: '', lang: 'en' };
   read$ = new Subject();
 
   componentDidMount() {
