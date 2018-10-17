@@ -39,9 +39,5 @@ export default {
   // Indian hindi
   ...hi.data,
   // Greek
-<<<<<<< HEAD
   ...gr.data
-=======
-  ...gr-GR.data
->>>>>>> 7d40c8d3b1c97312768c96b2aa4450d57a92801d
 };
