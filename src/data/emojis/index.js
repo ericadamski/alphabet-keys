@@ -8,10 +8,10 @@ import nb_NO from './nb-NO';
 import pl from './pl-PL';
 import pt_BR from './pt-BR';
 import sv from './sv';
+import it from './it';
 import el_GR from './el-GR';
 
-const allLangs = [en_CA, es, fr_CA, fr_FR, de, sv, pt_BR, nb_NO, pl, hi, el_GR];
-
+const allLangs = [en_CA, es, fr_CA, fr_FR, de, sv, pt_BR, nb_NO, pl, hi, el_GR, it];
 
 export const SUPPORTED_LANGS = allLangs.map(langData => ({
   label: langData.meta.label,
@@ -28,6 +28,8 @@ export default {
   ...fr_FR.data,
   // german
   ...de.data,
+  // italian
+  ...it.data,
   // swedish
   ...sv.data,
   // portuguese (Brazil)
