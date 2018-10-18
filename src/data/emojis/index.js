@@ -9,8 +9,9 @@ import pl from './pl-PL';
 import pt_BR from './pt-BR';
 import sv from './sv';
 import it from './it';
+import gr from './gr';
 
-const allLangs = [en_CA, es, fr_CA, fr_FR, de, sv, pt_BR, nb_NO, pl, hi, it];
+const allLangs = [en_CA, es, fr_CA, fr_FR, de, sv, pt_BR, nb_NO, pl, hi, gr, it];
 
 export const SUPPORTED_LANGS = allLangs.map(langData => ({
   label: langData.meta.label,
@@ -38,5 +39,7 @@ export default {
   // Polish
   ...pl.data,
   // Indian hindi
-  ...hi.data
+  ...hi.data,
+  // Greek
+  ...gr.data
 };
