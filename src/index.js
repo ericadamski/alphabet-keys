@@ -6,6 +6,7 @@ import styled, { css, injectGlobal } from 'styled-components';
 import KEYS from './data/keys';
 import EMOJIS, { SUPPORTED_LANGS } from './data/emojis';
 import * as serviceWorker from './serviceWorker';
+import Selector from './language-selector'
 
 const synth = window.speechSynthesis;
 
@@ -62,83 +63,6 @@ const Letters = styled.span`
   font-size: 10rem;
 `;
 
-const Language = styled.h3`
-  text-align: left;
-  width: 100%;
-  font-size: 3rem;
-  color: ${props => (props.selected ? '#2d2d34' : 'rgba(0,0,0,0.2)')};
-
-  &:hover {
-    color: #7c7c8e;
-    cursor: pointer;
-  }
-`;
-
-const LanguagesContainer = styled.div`
-  overflow: hidden;
-  height: 50%;
-  width: 30%;
-  position: absolute;
-  top: 5%;
-  left: 0px;
-
-  ${media(`
-    width: 100%;
-  `)}
-`;
-
-const Languages = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  padding: 4rem;
-
-  overflow-y: scroll;
-  right: -17px;
-  height: 100%;
-  -moz-box-sizing: border-box; 
-  -webkit-box-sizing: border-box; 
-  box-sizing: border-box;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  z-index: 1;
-
-  ${media(`
-    width: 100%;
-    display: flex;
-    flex-flow: row;
-    justify-content: space-between;
-    padding: 10px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    transform: translate-X(-50%);
-    height: 60px;
-    overflow-y: hidden;
-    overflow-x: scroll;
-
-    h3 {
-      font-size: 1rem;
-      text-align: center;
-      margin-right: 10px;
-    }
-  `)};
-
-  &:hover {
-    ${Language} {
-      opacity: 1;
-    }
-  }
-
-  ${Language} {
-    opacity: 0.75;
-  }
-`;
-
 const Reader = styled.textarea`
   position: absolute;
   top: -100vh;
@@ -189,7 +113,10 @@ class App extends Component {
       });
   }
 
-  changeLangTo = lang => () => this.setState({ lang });
+  changeLangTo = lang => {
+    this.setState({ lang });
+  }
+
   focusReader = () => {
     let node;
 
@@ -218,19 +145,11 @@ class App extends Component {
           {this.state.emoji}
         </Emoji>
         <Letters>{this.state.letters}</Letters>
-        <LanguagesContainer>
-          <Languages>
-            {SUPPORTED_LANGS.map(({ label, key }) => (
-              <Language
-                key={key}
-                selected={key === this.state.lang}
-                onClick={this.changeLangTo(key)}
-              >
-                {label}
-              </Language>
-            ))}
-          </Languages>
-        </LanguagesContainer>
+        <Selector 
+          data={SUPPORTED_LANGS} 
+          selected={this.state.lang}
+          onSelectLanguage={this.changeLangTo} 
+        />
       </Container>
     );
   }
