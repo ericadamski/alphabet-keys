@@ -1,6 +1,6 @@
 export default {
   meta: {
-    label: 'German',
+    label: 'German'
   },
   data: {
     de: {
