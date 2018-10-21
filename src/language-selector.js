@@ -66,12 +66,16 @@ const SelectorList = styled.ul`
   flex-direction: column;
   background: #FFFFCC;
   padding: 20px;
+  overflow: auto;
 `;
 
 const SelectorListItem = styled.li`
   width: 100%;
   display: flex;
   justify-content: center;
+  padding: 8px 0;
+  flex-grow: 0;
+  flex-shrink: 0;
 
   &:first-child {
     margin-top: auto;
@@ -90,8 +94,8 @@ const SelectorListButton = styled(BaseButton)`
 
 const CloseButton = styled(BaseButton)`
   position: absolute;
-  top: 2rem;
-  right: 2rem;
+  top: 20px;
+  right: 20px;
 `;
 
 const Chevron = () => (
