@@ -156,21 +156,6 @@ class App extends Component {
   render() {
     return (
       <Container onClick={this.focusReader}>
-        <Reader
-          aria-label="A hidden input to allow use on mobile devices"
-          ref={n => (this.reader = n)}
-          onChange={({ target }) =>
-            this.read$.next(
-              target.value.toLowerCase().charCodeAt(target.value.length - 1)
-            )
-          }
-        />
-        {this.state.emoji === '' &&
-          this.state.letters === '' && <Emoji>Press a key!</Emoji>}
-        <Emoji role="img" aria-label="emoji">
-          {this.state.emoji}
-        </Emoji>
-        <Letters>{this.state.letters}</Letters>
 		<SelectorContainer>
 		  <Selector
 			data={SUPPORTED_LANGS}
@@ -183,6 +168,30 @@ class App extends Component {
 			onSelect={this.onGameSelect}
 		  />
 		</SelectorContainer>
+		{
+		  this.state.selectedGame === Games.Values.ALPHABET && (
+			<>
+			  <Reader
+				aria-label="A hidden input to allow use on mobile devices"
+				ref={n => (this.reader = n)}
+				onChange={({ target }) =>
+				  this.read$.next(
+				  target.value.toLowerCase().charCodeAt(target.value.length - 1)
+				)}
+			  />
+			  {
+				this.state.emoji === '' &&
+				this.state.letters === '' && (
+				  <Emoji>Press a key!</Emoji>
+				)
+			  }
+			  <Emoji role="img" aria-label="emoji">
+				{this.state.emoji}
+			  </Emoji>
+			  <Letters>{this.state.letters}</Letters>
+			</>
+		  )
+		}
       </Container>
     );
   }
