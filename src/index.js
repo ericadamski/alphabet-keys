@@ -12,8 +12,6 @@ import { Games } from './data/games';
 
 import Selector from './selector';
 
-console.log(SUPPORTED_LANGS);
-
 const synth = window.speechSynthesis;
 
 function media(query) {

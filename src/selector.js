@@ -124,7 +124,6 @@ class Selector extends Component {
   };
 
   toggle = () => {
-	console.log(this.state.open);
     this.setState((state) => ({
       open: !state.open
     }));
