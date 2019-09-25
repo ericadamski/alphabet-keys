@@ -9,7 +9,7 @@ const SVG = styled.svg`
   margin-left: 8px;
 `;
 
-const Selector = styled.div`
+const Container = styled.div`
   display: flex;
   overflow: hidden;
   padding: 4px;
@@ -108,7 +108,7 @@ const Close = () => (
   <SVG viewBox="0 0 32 32" ariaHidden="true"><path d="M7.004 23.087l7.08-7.081-7.07-7.071L8.929 7.02l7.067 7.069L23.084 7l1.912 1.913-7.089 7.093 7.075 7.077-1.912 1.913-7.074-7.073L8.917 25z"/></SVG>
 );
 
-class LanguageSelector extends Component {
+class Selector extends Component {
   state = {
     open: false
   };
@@ -145,7 +145,7 @@ class LanguageSelector extends Component {
     });
 
     return (
-      <Selector className={css}>
+      <Container className={css}>
         <SelectorButton onClick={this.toggle}>
           {label} <Chevron />
         </SelectorButton>
@@ -163,9 +163,9 @@ class LanguageSelector extends Component {
             })}
           </SelectorList>
         </SelectorListWrapper>
-      </Selector>
+      </Container>
     );
   }
 }
 
-export default LanguageSelector;
+export default Selector;
