@@ -128,6 +128,12 @@ class App extends Component {
     this.setState({ lang });
   }
 
+  onGameSelect = game => {
+	this.setState({
+		selectedGame: game,
+	})
+  }
+
   focusReader = () => {
     let node;
 
@@ -164,7 +170,7 @@ class App extends Component {
         <Selector
           data={Games.List}
           selected={this.state.selectedGame}
-          onSelect={() => console.log('asdasd')}
+          onSelect={this.onGameSelect}
         />
       </Container>
     );
