@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import classnames from "classnames";
 import styled from 'styled-components';
 
 const SVG = styled.svg`
@@ -26,22 +25,15 @@ const BaseButton = styled.button`
   font-size: 1.6rem;
   padding: 0;
   justify-content: center;
+  cursor: pointer;
 
   &:focus {
     outline: none;
   }
 `;
 
-const SelectorButton = styled(BaseButton)`
-  position: absolute;
-  top: 2rem;
-  left: 50%;
-  transform: translateX(-50%);
-  white-space: nowrap;
-`;
-
 const SelectorListWrapper = styled.div`
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
@@ -50,11 +42,17 @@ const SelectorListWrapper = styled.div`
   opacity: 0;
   display: flex;
 
-  .is-open & {
-    pointer-events: auto;
-    opacity: 1;
-    transition: opacity 0.5s ease;
-  }
+  ${({ isOpen }) => {
+	if (isOpen) {
+	  return `
+		pointer-events: auto;
+		opacity: 1;
+		transition: opacity 0.5s ease;
+	  `;
+	}
+
+	return undefined;
+  }}
 `;
 
 const SelectorList = styled.ul`
@@ -86,6 +84,10 @@ const SelectorListItem = styled.li`
   }
 `;
 
+const SelectorButton = styled(BaseButton)`
+  margin: 0 10px;
+`;
+
 const SelectorListButton = styled(BaseButton)`
   width: 100%;
   display: flex;
@@ -114,20 +116,18 @@ class Selector extends Component {
   };
 
   onSelect = key => {
-    const {onSelect} = this.props
+	this.props.onSelect(key);
 
-    console.log(onSelect, key)
-    onSelect(key)
     this.setState({
       open: false
     });
   };
 
-  toggle = e => {
-    const { open } = this.state;
-    this.setState({
-      open: !open
-    });
+  toggle = () => {
+	console.log(this.state.open);
+    this.setState((state) => ({
+      open: !state.open
+    }));
   };
 
   close = e => {
@@ -140,19 +140,14 @@ class Selector extends Component {
     const { open } = this.state;
 	const { data, selected } = this.props;
 
-	console.log(this.props);
-
     const { label } = data.filter(d => d.key === selected)[0]
-    const css = classnames({
-      "is-open": open
-    });
 
     return (
-      <Container className={css}>
+      <Container>
         <SelectorButton onClick={this.toggle}>
           {label} <Chevron />
         </SelectorButton>
-        <SelectorListWrapper>
+        <SelectorListWrapper isOpen={open}>
           <CloseButton onClick={this.close}>
             <Close />
           </CloseButton>

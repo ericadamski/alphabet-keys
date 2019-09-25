@@ -53,9 +53,18 @@ const Container = styled.section`
   background: #e3dcf7;
 `;
 
+const SelectorContainer = styled.div`
+  position: absolute;
+  left: 0;
+  width: 100%;
+  top: 2rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+`;
+
 const Emoji = styled.span`
   font-size: 10rem;
-  line-height: 5rem;
   margin: 2rem;
 
   ${media(`
@@ -162,16 +171,18 @@ class App extends Component {
           {this.state.emoji}
         </Emoji>
         <Letters>{this.state.letters}</Letters>
-        <Selector
-          data={SUPPORTED_LANGS}
-          selected={this.state.lang}
-          onSelect={this.changeLangTo}
-        />
-        <Selector
-          data={Games.List}
-          selected={this.state.selectedGame}
-          onSelect={this.onGameSelect}
-        />
+		<SelectorContainer>
+		  <Selector
+			data={SUPPORTED_LANGS}
+			selected={this.state.lang}
+			onSelect={this.changeLangTo}
+		  />
+		  <Selector
+			data={Games.List}
+			selected={this.state.selectedGame}
+			onSelect={this.onGameSelect}
+		  />
+		</SelectorContainer>
       </Container>
     );
   }
