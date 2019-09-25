@@ -114,10 +114,10 @@ class Selector extends Component {
   };
 
   onSelect = key => {
-    const {onSelectLanguage} = this.props
+    const {onSelect} = this.props
 
-    console.log(onSelectLanguage, key)
-    onSelectLanguage(key)
+    console.log(onSelect, key)
+    onSelect(key)
     this.setState({
       open: false
     });
@@ -138,7 +138,10 @@ class Selector extends Component {
 
   render() {
     const { open } = this.state;
-    const { data, selected } = this.props;
+	const { data, selected } = this.props;
+
+	console.log(this.props);
+
     const { label } = data.filter(d => d.key === selected)[0]
     const css = classnames({
       "is-open": open

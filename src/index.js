@@ -2,11 +2,17 @@ import React, { Component } from 'react';
 import ReactDOM, { findDOMNode } from 'react-dom';
 import { Subject } from 'rxjs';
 import { filter } from 'rxjs/operators';
-import styled, { css, injectGlobal } from 'styled-components';
-import KEYS from './data/keys';
-import EMOJIS, { SUPPORTED_LANGS } from './data/emojis';
 import * as serviceWorker from './serviceWorker';
+import styled, { css, injectGlobal } from 'styled-components';
+
+import KEYS from './data/keys';
+import EMOJIS from './data/emojis';
+import { SUPPORTED_LANGS } from './data/languages';
+import { Games } from './data/games';
+
 import Selector from './selector';
+
+console.log(SUPPORTED_LANGS);
 
 const synth = window.speechSynthesis;
 
@@ -69,7 +75,12 @@ const Reader = styled.textarea`
 `;
 
 class App extends Component {
-  state = { emoji: '', letters: '', lang: SUPPORTED_LANGS[0].key };
+  state = {
+	emoji: '',
+	letters: '',
+	lang: SUPPORTED_LANGS[0].key,
+	selectedGame: Games.List[0].key,
+  };
   read$ = new Subject();
 
   componentDidMount() {
@@ -148,7 +159,12 @@ class App extends Component {
         <Selector
           data={SUPPORTED_LANGS}
           selected={this.state.lang}
-          onSelectLanguage={this.changeLangTo}
+          onSelect={this.changeLangTo}
+        />
+        <Selector
+          data={Games.List}
+          selected={this.state.selectedGame}
+          onSelect={() => console.log('asdasd')}
         />
       </Container>
     );
