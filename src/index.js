@@ -6,7 +6,7 @@ import styled, { css, injectGlobal } from 'styled-components';
 import KEYS from './data/keys';
 import EMOJIS, { SUPPORTED_LANGS } from './data/emojis';
 import * as serviceWorker from './serviceWorker';
-import Selector from './language-selector'
+import Selector from './selector';
 
 const synth = window.speechSynthesis;
 
@@ -145,10 +145,10 @@ class App extends Component {
           {this.state.emoji}
         </Emoji>
         <Letters>{this.state.letters}</Letters>
-        <Selector 
-          data={SUPPORTED_LANGS} 
+        <Selector
+          data={SUPPORTED_LANGS}
           selected={this.state.lang}
-          onSelectLanguage={this.changeLangTo} 
+          onSelectLanguage={this.changeLangTo}
         />
       </Container>
     );
