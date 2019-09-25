@@ -1,11 +1,4 @@
 {
-  "alias": ["alphabet-keys"],
-  "static": {
-    "rewrites": [
-      {
-        "source": "**",
-        "destination": "/index.html"
-      }
-    ]
-  }
+  "version": 2,
+  "alias": ["alphabet-keys"]
 }
