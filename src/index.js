@@ -2,11 +2,15 @@ import React, { Component } from 'react';
 import ReactDOM, { findDOMNode } from 'react-dom';
 import { Subject } from 'rxjs';
 import { filter } from 'rxjs/operators';
-import styled, { css, injectGlobal } from 'styled-components';
-import KEYS from './data/keys';
-import EMOJIS, { SUPPORTED_LANGS } from './data/emojis';
 import * as serviceWorker from './serviceWorker';
-import Selector from './language-selector'
+import styled, { css, injectGlobal } from 'styled-components';
+
+import KEYS from './data/keys';
+import EMOJIS from './data/emojis';
+import { SUPPORTED_LANGS } from './data/languages';
+import { Games } from './data/games';
+
+import Selector from './selector';
 
 const synth = window.speechSynthesis;
 
@@ -47,9 +51,18 @@ const Container = styled.section`
   background: #e3dcf7;
 `;
 
+const SelectorContainer = styled.div`
+  position: absolute;
+  left: 0;
+  width: 100%;
+  top: 2rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+`;
+
 const Emoji = styled.span`
   font-size: 10rem;
-  line-height: 5rem;
   margin: 2rem;
 
   ${media(`
@@ -69,7 +82,12 @@ const Reader = styled.textarea`
 `;
 
 class App extends Component {
-  state = { emoji: '', letters: '', lang: SUPPORTED_LANGS[0].key };
+  state = {
+	emoji: '',
+	letters: '',
+	lang: SUPPORTED_LANGS[0].key,
+	selectedGame: Games.List[0].key,
+  };
   read$ = new Subject();
 
   componentDidMount() {
@@ -117,6 +135,12 @@ class App extends Component {
     this.setState({ lang });
   }
 
+  onGameSelect = game => {
+	this.setState({
+		selectedGame: game,
+	})
+  }
+
   focusReader = () => {
     let node;
 
@@ -130,26 +154,42 @@ class App extends Component {
   render() {
     return (
       <Container onClick={this.focusReader}>
-        <Reader
-          aria-label="A hidden input to allow use on mobile devices"
-          ref={n => (this.reader = n)}
-          onChange={({ target }) =>
-            this.read$.next(
-              target.value.toLowerCase().charCodeAt(target.value.length - 1)
-            )
-          }
-        />
-        {this.state.emoji === '' &&
-          this.state.letters === '' && <Emoji>Press a key!</Emoji>}
-        <Emoji role="img" aria-label="emoji">
-          {this.state.emoji}
-        </Emoji>
-        <Letters>{this.state.letters}</Letters>
-        <Selector 
-          data={SUPPORTED_LANGS} 
-          selected={this.state.lang}
-          onSelectLanguage={this.changeLangTo} 
-        />
+		<SelectorContainer>
+		  <Selector
+			data={SUPPORTED_LANGS}
+			selected={this.state.lang}
+			onSelect={this.changeLangTo}
+		  />
+		  <Selector
+			data={Games.List}
+			selected={this.state.selectedGame}
+			onSelect={this.onGameSelect}
+		  />
+		</SelectorContainer>
+		{
+		  this.state.selectedGame === Games.Values.ALPHABET && (
+			<>
+			  <Reader
+				aria-label="A hidden input to allow use on mobile devices"
+				ref={n => (this.reader = n)}
+				onChange={({ target }) =>
+				  this.read$.next(
+				  target.value.toLowerCase().charCodeAt(target.value.length - 1)
+				)}
+			  />
+			  {
+				this.state.emoji === '' &&
+				this.state.letters === '' && (
+				  <Emoji>Press a key!</Emoji>
+				)
+			  }
+			  <Emoji role="img" aria-label="emoji">
+				{this.state.emoji}
+			  </Emoji>
+			  <Letters>{this.state.letters}</Letters>
+			</>
+		  )
+		}
       </Container>
     );
   }

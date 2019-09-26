@@ -16,6 +16,6 @@ yarn start
 ## Add a Language
 1. Add a new locale file in [src/data/emojis/](https://github.com/ericadamski/alphabet-keys/tree/master/src/data/emojis)
 2. Import the new locale file at the top of [src/data/emojis/index.js](https://github.com/ericadamski/alphabet-keys/tree/master/src/data/emojis/index.js)
-    1. Add the new lang file to the `allLangs` array in [src/data/emojis/index.js](https://github.com/ericadamski/alphabet-keys/tree/master/src/data/emojis/index.js) to make it available in the language menu.
-    2. Spread the new locale data in the default export at the bottom of [src/data/emojis/index.js](https://github.com/ericadamski/alphabet-keys/tree/master/src/data/emojis/index.js) to make it available in the exported `Emojis` object.
-3. Done! 
+    1. Add the new lang file to the `allLangs` array in [src/data/languages.js](https://github.com/ericadamski/alphabet-keys/tree/master/src/data/languages.js) to make it available in the language menu.
+    2. Spread the new locale data in the default export at the bottom of [src/data/languages.js](https://github.com/ericadamski/alphabet-keys/tree/master/src/data/languages.js) to make it available in the exported `SUPPORTED_LANGS` object.
+3. Done!
