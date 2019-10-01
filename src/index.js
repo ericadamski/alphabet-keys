@@ -1,43 +1,21 @@
 import React, { Component } from 'react';
-import ReactDOM, { findDOMNode } from 'react-dom';
+import ReactDOM  from 'react-dom';
 import { Subject } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import * as serviceWorker from './serviceWorker';
-import styled, { css, injectGlobal } from 'styled-components';
+import styled from 'styled-components';
 
 import KEYS from './data/keys';
 import EMOJIS from './data/emojis';
 import { SUPPORTED_LANGS } from './data/languages';
 import { Games } from './data/games';
+import './styles';
 
 import Selector from './selector';
+import { Alphabet } from './games/Alphabet';
+import { Counting } from './games/Counting';
 
 const synth = window.speechSynthesis;
-
-function media(query) {
-  return css`
-    @media screen and (max-width: 800px) {
-      ${query};
-    }
-  `;
-}
-
-injectGlobal`
-  /* latin */
-  @font-face {
-    font-family: 'ABeeZee';
-    font-style: normal;
-    font-weight: 400;
-    src: local('ABeeZee Regular'), local('ABeeZee-Regular'), url(https://fonts.gstatic.com/s/abeezee/v11/esDR31xSG-6AGleN2tWkkJUEGpA.woff2) format('woff2');
-    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-  }
-
-  html, body {
-    font-family: 'ABeeZee', sans-serif;
-    padding: 0;
-    margin: 0;
-  }
-`;
 
 const Container = styled.section`
   width: 100vw;
@@ -61,140 +39,146 @@ const SelectorContainer = styled.div`
   justify-content: center;
 `;
 
-const Emoji = styled.span`
-  font-size: 10rem;
-  margin: 2rem;
-
-  ${media(`
-    font-size: 3rem;
-    line-height: 2rem;
-    margin: 0;
-  `)};
-`;
-
-const Letters = styled.span`
-  font-size: 10rem;
-`;
-
 const Reader = styled.textarea`
   position: absolute;
   top: -100vh;
 `;
 
 class App extends Component {
-  state = {
-	emoji: '',
-	letters: '',
-	lang: SUPPORTED_LANGS[0].key,
-	selectedGame: Games.List[0].key,
-  };
-  read$ = new Subject();
+  constructor(props) {
+    super(props);
 
+    this.state = {
+      emoji: undefined,
+      character: undefined,
+      lang: SUPPORTED_LANGS[0].key,
+      selectedGame: Games.List[0].key,
+    };
+
+    this.read$ = new Subject();
+    this.reader = React.createRef();
+    this.key = undefined;
+  }
+  
   componentDidMount() {
     this.key = this.read$
       .pipe(filter(keyCode => keyCode in KEYS && !synth.speaking))
       .subscribe(keyCode => {
-        const { letter } = KEYS[keyCode];
-        const emojis = EMOJIS[this.state.lang][keyCode];
-        let text;
-        let emoji;
+        let text = undefined;
+        let emoji = undefined;
+        let emojis = undefined;
 
-        if (emojis) {
-          emoji = emojis[Math.floor(Math.random() * emojis.length)];
+        const { letter: character } = KEYS[keyCode];
 
-          if (Array.isArray(emoji)) {
-            text = emoji[1];
-            emoji = emoji[0];
+        const emojisInLang = EMOJIS[this.state.lang];
+
+        if (!isNaN(character)) {
+          // Only allow hitting number when you play counting
+          if (this.state.selectedGame !== Games.Values.COUNTING) return;
+
+          const randomKey = Math.floor(Math.random() * Object.values(emojisInLang).length);
+          emojis = Object.values(emojisInLang)[randomKey];
+
+          text = character;
+
+          if (emojis) {
+            emoji = emojis[Math.floor(Math.random() * emojis.length)];
+          
+            if (Array.isArray(emoji)) {
+              emoji = emoji[0];
+            }
+          }
+        } else {
+          // Only allow hitting alphabet when you play alphabet
+          if (this.state.selectedGame !== Games.Values.ALPHABET) return;
+
+          emojis = emojisInLang[keyCode];
+          
+          if (emojis) {
+            emoji = emojis[Math.floor(Math.random() * emojis.length)];
+          
+            if (Array.isArray(emoji)) {
+              [emoji, text] = emoji;
+            }
           }
         }
-
-        this.setState(
-          {
-            emoji,
-            letters: isNaN(+letter)
-              ? `${letter.toUpperCase()} ${letter}`
-              : letter
-          },
-          () => {
-            [
-              new SpeechSynthesisUtterance(letter),
-              emoji !== undefined && new SpeechSynthesisUtterance(text || emoji)
-            ]
-              .filter(Boolean)
-              .forEach(utterance => {
-                utterance.lang = this.state.lang;
-
-                synth.speak(utterance);
-              });
-          }
-        );
+      
+        this.setState({
+          emoji,
+          character,
+        }, () => {
+          [
+            new SpeechSynthesisUtterance(character),
+            !emoji && new SpeechSynthesisUtterance(text || emoji)
+          ]
+          .filter(Boolean)
+          .forEach(utterance => {
+            utterance.lang = this.state.lang;
+            synth.speak(utterance);
+          });
+        });
       });
   }
-
+    
   changeLangTo = lang => {
     this.setState({ lang });
   }
-
+  
   onGameSelect = game => {
-	this.setState({
-		selectedGame: game,
-	})
+    this.setState({
+      selectedGame: game,
+      character: undefined,
+      emoji: undefined,
+    })
   }
-
+  
   focusReader = () => {
-    let node;
-
-    this.reader && (node = findDOMNode(this.reader)) && node.focus();
+    if (this.reader.current) {
+      this.reader.current.focus();
+    }
   };
-
+  
   componentWillUnmount() {
     this.key && this.key.unsubscribe();
   }
-
+  
   render() {
     return (
       <Container onClick={this.focusReader}>
-		<SelectorContainer>
-		  <Selector
-			data={SUPPORTED_LANGS}
-			selected={this.state.lang}
-			onSelect={this.changeLangTo}
-		  />
-		  <Selector
-			data={Games.List}
-			selected={this.state.selectedGame}
-			onSelect={this.onGameSelect}
-		  />
-		</SelectorContainer>
-		{
-		  this.state.selectedGame === Games.Values.ALPHABET && (
-			<>
-			  <Reader
-				aria-label="A hidden input to allow use on mobile devices"
-				ref={n => (this.reader = n)}
-				onChange={({ target }) =>
-				  this.read$.next(
-				  target.value.toLowerCase().charCodeAt(target.value.length - 1)
-				)}
-			  />
-			  {
-				this.state.emoji === '' &&
-				this.state.letters === '' && (
-				  <Emoji>Press a key!</Emoji>
-				)
-			  }
-			  <Emoji role="img" aria-label="emoji">
-				{this.state.emoji}
-			  </Emoji>
-			  <Letters>{this.state.letters}</Letters>
-			</>
-		  )
-		}
+        <SelectorContainer>
+          <Selector
+            data={SUPPORTED_LANGS}
+            selected={this.state.lang}
+            onSelect={this.changeLangTo}
+          />
+          <Selector
+            data={Games.List}
+            selected={this.state.selectedGame}
+            onSelect={this.onGameSelect}
+          />
+        </SelectorContainer>
+        <Reader
+          aria-label="A hidden input to allow use on mobile devices"
+          innerRef={this.reader}
+          onChange={({ target }) =>
+            this.read$.next(target.value.toLowerCase().charCodeAt(target.value.length - 1)
+          )}
+        />
+        {
+          this.state.selectedGame === Games.Values.ALPHABET && (
+            <Alphabet emoji={this.state.emoji} character={this.state.character} />
+          )
+        }
+        {
+          this.state.selectedGame === Games.Values.COUNTING && (
+            <Counting emoji={this.state.emoji} character={this.state.character} />
+          )
+        }
       </Container>
     );
   }
 }
-
+          
 ReactDOM.render(<App />, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
