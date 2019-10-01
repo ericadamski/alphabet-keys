@@ -9,10 +9,11 @@ import KEYS from './data/keys';
 import EMOJIS from './data/emojis';
 import { SUPPORTED_LANGS } from './data/languages';
 import { Games } from './data/games';
-import { media } from './utils/styles';
 import './styles';
 
 import Selector from './selector';
+import { Alphabet } from './games/Alphabet';
+import { Counting } from './games/Counting';
 
 const synth = window.speechSynthesis;
 
@@ -38,21 +39,6 @@ const SelectorContainer = styled.div`
   justify-content: center;
 `;
 
-const Emoji = styled.span`
-  font-size: 10rem;
-  margin: 2rem;
-
-  ${media(`
-    font-size: 3rem;
-    line-height: 2rem;
-    margin: 0;
-  `)};
-`;
-
-const Letters = styled.span`
-  font-size: 10rem;
-`;
-
 const Reader = styled.textarea`
   position: absolute;
   top: -100vh;
@@ -63,16 +49,14 @@ class App extends Component {
     super(props);
 
     this.state = {
-      emoji: '',
-      letters: '',
+      emoji: undefined,
+      character: undefined,
       lang: SUPPORTED_LANGS[0].key,
       selectedGame: Games.List[0].key,
     };
 
     this.read$ = new Subject();
     this.reader = React.createRef();
-
-    console.log(this.reader);
   }
   
   componentDidMount() {
@@ -96,7 +80,7 @@ class App extends Component {
         this.setState(
           {
             emoji,
-            letters: isNaN(+letter)
+            character: isNaN(+letter)
             ? `${letter.toUpperCase()} ${letter}`
             : letter
           },
@@ -151,25 +135,21 @@ class App extends Component {
             onSelect={this.onGameSelect}
           />
         </SelectorContainer>
+        <Reader
+          aria-label="A hidden input to allow use on mobile devices"
+          innerRef={this.reader}
+          onChange={({ target }) =>
+            this.read$.next(target.value.toLowerCase().charCodeAt(target.value.length - 1)
+          )}
+        />
         {
           this.state.selectedGame === Games.Values.ALPHABET && (
-            <>
-              <Reader
-                aria-label="A hidden input to allow use on mobile devices"
-                innerRef={this.reader}
-                onChange={({ target }) =>
-                  this.read$.next(target.value.toLowerCase().charCodeAt(target.value.length - 1)
-                )}
-              />
-              {
-                this.state.emoji === '' &&
-                this.state.letters === '' && (
-                  <Emoji>Press a key!</Emoji>
-                )
-              }
-              <Emoji role="img" aria-label="emoji">{this.state.emoji}</Emoji>
-              <Letters>{this.state.letters}</Letters>
-            </>
+            <Alphabet emoji={this.state.emoji} character={this.state.character} />
+          )
+        }
+        {
+          this.state.selectedGame === Games.Values.COUNTING && (
+            <Counting emoji={this.state.emoji} character={this.state.character} />
           )
         }
       </Container>
