@@ -11,7 +11,7 @@ export class Alphabet extends React.PureComponent {
 		return (
 			<>
 				<Emoji role="img" aria-label="emoji">{this.props.emoji}</Emoji>
-				<Letters>{this.props.character}</Letters>
+				<Letters>{this.props.character.toUpperCase()} {this.props.character}</Letters>
 			</>
 		)
 	}
