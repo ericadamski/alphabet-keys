@@ -1,4 +1,5 @@
 import de from './de';
+import nl from './nl';
 import en_CA from './en-CA';
 import es from './es';
 import fr_CA from './fr-CA';
@@ -22,6 +23,8 @@ export default {
   ...fr_FR.data,
   // german
   ...de.data,
+  // dutch
+  ...nl.data,
   // italian
   ...it.data,
   // swedish
