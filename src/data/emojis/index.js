@@ -11,13 +11,6 @@ import sv from './sv';
 import it from './it';
 import el_GR from './el-GR';
 
-const allLangs = [en_CA, es, fr_CA, fr_FR, de, sv, pt_BR, nb_NO, pl, hi, el_GR, it];
-
-export const SUPPORTED_LANGS = allLangs.map(langData => ({
-  label: langData.meta.label,
-  key: Object.keys(langData.data)[0]
-}));
-
 export default {
   // english
   ...en_CA.data,

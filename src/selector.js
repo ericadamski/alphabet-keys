@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import classnames from "classnames";
 import styled from 'styled-components';
 
 const SVG = styled.svg`
@@ -9,7 +8,7 @@ const SVG = styled.svg`
   margin-left: 8px;
 `;
 
-const Selector = styled.div`
+const Container = styled.div`
   display: flex;
   overflow: hidden;
   padding: 4px;
@@ -26,22 +25,15 @@ const BaseButton = styled.button`
   font-size: 1.6rem;
   padding: 0;
   justify-content: center;
+  cursor: pointer;
 
   &:focus {
     outline: none;
   }
 `;
 
-const SelectorButton = styled(BaseButton)`
-  position: absolute;
-  top: 2rem;
-  left: 50%;
-  transform: translateX(-50%);
-  white-space: nowrap;
-`;
-
 const SelectorListWrapper = styled.div`
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
@@ -50,11 +42,17 @@ const SelectorListWrapper = styled.div`
   opacity: 0;
   display: flex;
 
-  .is-open & {
-    pointer-events: auto;
-    opacity: 1;
-    transition: opacity 0.5s ease;
-  }
+  ${({ isOpen }) => {
+	if (isOpen) {
+	  return `
+		pointer-events: auto;
+		opacity: 1;
+		transition: opacity 0.5s ease;
+	  `;
+	}
+
+	return undefined;
+  }}
 `;
 
 const SelectorList = styled.ul`
@@ -86,6 +84,10 @@ const SelectorListItem = styled.li`
   }
 `;
 
+const SelectorButton = styled(BaseButton)`
+  margin: 0 10px;
+`;
+
 const SelectorListButton = styled(BaseButton)`
   width: 100%;
   display: flex;
@@ -108,26 +110,23 @@ const Close = () => (
   <SVG viewBox="0 0 32 32" ariaHidden="true"><path d="M7.004 23.087l7.08-7.081-7.07-7.071L8.929 7.02l7.067 7.069L23.084 7l1.912 1.913-7.089 7.093 7.075 7.077-1.912 1.913-7.074-7.073L8.917 25z"/></SVG>
 );
 
-class LanguageSelector extends Component {
+class Selector extends Component {
   state = {
     open: false
   };
 
   onSelect = key => {
-    const {onSelectLanguage} = this.props
+	this.props.onSelect(key);
 
-    console.log(onSelectLanguage, key)
-    onSelectLanguage(key)
     this.setState({
       open: false
     });
   };
 
-  toggle = e => {
-    const { open } = this.state;
-    this.setState({
-      open: !open
-    });
+  toggle = () => {
+    this.setState((state) => ({
+      open: !state.open
+    }));
   };
 
   close = e => {
@@ -138,18 +137,16 @@ class LanguageSelector extends Component {
 
   render() {
     const { open } = this.state;
-    const { data, selected } = this.props;
+	const { data, selected } = this.props;
+
     const { label } = data.filter(d => d.key === selected)[0]
-    const css = classnames({
-      "is-open": open
-    });
 
     return (
-      <Selector className={css}>
+      <Container>
         <SelectorButton onClick={this.toggle}>
           {label} <Chevron />
         </SelectorButton>
-        <SelectorListWrapper>
+        <SelectorListWrapper isOpen={open}>
           <CloseButton onClick={this.close}>
             <Close />
           </CloseButton>
@@ -163,9 +160,9 @@ class LanguageSelector extends Component {
             })}
           </SelectorList>
         </SelectorListWrapper>
-      </Selector>
+      </Container>
     );
   }
 }
 
-export default LanguageSelector;
+export default Selector;
