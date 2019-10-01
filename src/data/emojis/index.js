@@ -10,6 +10,7 @@ import pt_BR from './pt-BR';
 import sv from './sv';
 import it from './it';
 import el_GR from './el-GR';
+import tl from './tl';
 
 export default {
   // english
@@ -33,6 +34,8 @@ export default {
   ...pl.data,
   // Indian hindi
   ...hi.data,
+  // Tagalog
+  ...tl.data,
   // Greek
   ...el_GR.data
 };
