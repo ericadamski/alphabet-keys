@@ -66,15 +66,40 @@ class App extends Component {
       .subscribe(keyCode => {
         let text = undefined;
         let emoji = undefined;
+        let emojis = undefined;
 
         const { letter: character } = KEYS[keyCode];
-        const emojis = EMOJIS[this.state.lang][keyCode];
-        
-        if (emojis) {
-          emoji = emojis[Math.floor(Math.random() * emojis.length)];
-        
-          if (Array.isArray(emoji)) {
-            [emoji, text] = emoji;
+
+        const emojisInLang = EMOJIS[this.state.lang];
+
+        if (!isNaN(character)) {
+          // Only allow hitting number when you play counting
+          if (this.state.selectedGame !== Games.Values.COUNTING) return;
+
+          const randomKey = Math.floor(Math.random() * Object.values(emojisInLang).length);
+          emojis = Object.values(emojisInLang)[randomKey];
+
+          text = character;
+
+          if (emojis) {
+            emoji = emojis[Math.floor(Math.random() * emojis.length)];
+          
+            if (Array.isArray(emoji)) {
+              emoji = emoji[0];
+            }
+          }
+        } else {
+          // Only allow hitting alphabet when you play alphabet
+          if (this.state.selectedGame !== Games.Values.ALPHABET) return;
+
+          emojis = emojisInLang[keyCode];
+          
+          if (emojis) {
+            emoji = emojis[Math.floor(Math.random() * emojis.length)];
+          
+            if (Array.isArray(emoji)) {
+              [emoji, text] = emoji;
+            }
           }
         }
       
@@ -102,6 +127,8 @@ class App extends Component {
   onGameSelect = game => {
     this.setState({
       selectedGame: game,
+      character: undefined,
+      emoji: undefined,
     })
   }
   

@@ -8,12 +8,12 @@ export class Counting extends React.PureComponent {
 		if (!this.props.emoji || !this.props.character) {
 			return (<Letters>Press a number!</Letters>);
 		}
-	
+
 		return (
 			<>
 				<EmojiContainer>
 					{
-						Array(2).fill(0).map((_, index) => (
+						Array(parseInt(this.props.character)).fill(0).map((_, index) => (
 							<Emoji key={index} role="img" aria-label="emoji">{this.props.emoji}</Emoji>
 						))
 					}

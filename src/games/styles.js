@@ -14,4 +14,5 @@ export const Emoji = styled.span`
 
 export const Letters = styled.span`
 	font-size: 10rem;
+	text-align: center;
 `;
