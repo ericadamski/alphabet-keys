@@ -1,12 +1,8 @@
 import React, { Component } from "react";
 import styled from 'styled-components';
 
-const SVG = styled.svg`
-  fill: currentColor;
-  width: 1.5rem;
-  height: 1.5rem;
-  margin-left: 8px;
-`;
+import { Close } from './icon/close'
+import { Chevron } from './icon/chevron';
 
 const Container = styled.div`
   display: flex;
@@ -43,15 +39,15 @@ const SelectorListWrapper = styled.div`
   display: flex;
 
   ${({ isOpen }) => {
-	if (isOpen) {
-	  return `
-		pointer-events: auto;
-		opacity: 1;
-		transition: opacity 0.5s ease;
-	  `;
-	}
+    if (isOpen) {
+      return `
+      pointer-events: auto;
+      opacity: 1;
+      transition: opacity 0.5s ease;
+      `;
+    }
 
-	return undefined;
+    return undefined;
   }}
 `;
 
@@ -99,16 +95,6 @@ const CloseButton = styled(BaseButton)`
   top: 20px;
   right: 20px;
 `;
-
-const Chevron = () => (
-  <SVG viewBox="0 0 32 32" ariaHidden="true">
-    <path d="M16.003 18.626l7.081-7.081L25 13.46l-8.997 8.998-9.003-9 1.917-1.916z" />
-  </SVG>
-);
-
-const Close = () => (
-  <SVG viewBox="0 0 32 32" ariaHidden="true"><path d="M7.004 23.087l7.08-7.081-7.07-7.071L8.929 7.02l7.067 7.069L23.084 7l1.912 1.913-7.089 7.093 7.075 7.077-1.912 1.913-7.074-7.073L8.917 25z"/></SVG>
-);
 
 class Selector extends Component {
   state = {
