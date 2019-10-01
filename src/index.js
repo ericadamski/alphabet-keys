@@ -131,73 +131,70 @@ class App extends Component {
       });
     }
     
-    changeLangTo = lang => {
-      this.setState({ lang });
-    }
+  changeLangTo = lang => {
+    this.setState({ lang });
+  }
+  
+  onGameSelect = game => {
+    this.setState({
+      selectedGame: game,
+    })
+  }
+  
+  focusReader = () => {
+    let node;
     
-    onGameSelect = game => {
-      this.setState({
-        selectedGame: game,
-      })
-    }
-    
-    focusReader = () => {
-      let node;
-      
-      this.reader && (node = findDOMNode(this.reader)) && node.focus();
-    };
-    
-    componentWillUnmount() {
-      this.key && this.key.unsubscribe();
-    }
-    
-    render() {
-      return (
-        <Container onClick={this.focusReader}>
+    this.reader && (node = findDOMNode(this.reader)) && node.focus();
+  };
+  
+  componentWillUnmount() {
+    this.key && this.key.unsubscribe();
+  }
+  
+  render() {
+    return (
+      <Container onClick={this.focusReader}>
         <SelectorContainer>
-        <Selector
-        data={SUPPORTED_LANGS}
-        selected={this.state.lang}
-        onSelect={this.changeLangTo}
-        />
-        <Selector
-        data={Games.List}
-        selected={this.state.selectedGame}
-        onSelect={this.onGameSelect}
-        />
+          <Selector
+            data={SUPPORTED_LANGS}
+            selected={this.state.lang}
+            onSelect={this.changeLangTo}
+          />
+          <Selector
+            data={Games.List}
+            selected={this.state.selectedGame}
+            onSelect={this.onGameSelect}
+          />
         </SelectorContainer>
         {
           this.state.selectedGame === Games.Values.ALPHABET && (
             <>
-            <Reader
-            aria-label="A hidden input to allow use on mobile devices"
-            ref={n => (this.reader = n)}
-            onChange={({ target }) =>
-            this.read$.next(
-              target.value.toLowerCase().charCodeAt(target.value.length - 1)
-              )}
+              <Reader
+                aria-label="A hidden input to allow use on mobile devices"
+                ref={n => (this.reader = n)}
+                onChange={({ target }) =>
+                  this.read$.next(target.value.toLowerCase().charCodeAt(target.value.length - 1)
+                )}
               />
               {
                 this.state.emoji === '' &&
                 this.state.letters === '' && (
                   <Emoji>Press a key!</Emoji>
-                  )
-                }
-                <Emoji role="img" aria-label="emoji">
-                {this.state.emoji}
-                </Emoji>
-                <Letters>{this.state.letters}</Letters>
-                </>
                 )
               }
-              </Container>
-              );
-            }
-          }
+              <Emoji role="img" aria-label="emoji">{this.state.emoji}</Emoji>
+              <Letters>{this.state.letters}</Letters>
+            </>
+          )
+        }
+      </Container>
+    );
+  }
+}
           
-          ReactDOM.render(<App />, document.getElementById('root'));
-          
-          // If you want your app to work offline and load faster, you can change
-          // unregister() to register() below. Note this comes with some pitfalls.
-          // Learn more about service workers: http://bit.ly/CRA-PWA
-          serviceWorker.register();
+ReactDOM.render(<App />, document.getElementById('root'));
+
+// If you want your app to work offline and load faster, you can change
+// unregister() to register() below. Note this comes with some pitfalls.
+// Learn more about service workers: http://bit.ly/CRA-PWA
+serviceWorker.register();
