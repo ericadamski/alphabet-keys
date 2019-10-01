@@ -57,46 +57,41 @@ class App extends Component {
 
     this.read$ = new Subject();
     this.reader = React.createRef();
+    this.key = undefined;
   }
   
   componentDidMount() {
     this.key = this.read$
       .pipe(filter(keyCode => keyCode in KEYS && !synth.speaking))
       .subscribe(keyCode => {
-        const { letter } = KEYS[keyCode];
+        let text = undefined;
+        let emoji = undefined;
+
+        const { letter: character } = KEYS[keyCode];
         const emojis = EMOJIS[this.state.lang][keyCode];
-        let text;
-        let emoji;
         
         if (emojis) {
           emoji = emojis[Math.floor(Math.random() * emojis.length)];
         
           if (Array.isArray(emoji)) {
-            text = emoji[1];
-            emoji = emoji[0];
+            [emoji, text] = emoji;
           }
         }
       
-        this.setState(
-          {
-            emoji,
-            character: isNaN(+letter)
-            ? `${letter.toUpperCase()} ${letter}`
-            : letter
-          },
-          () => {
-            [
-              new SpeechSynthesisUtterance(letter),
-              emoji !== undefined && new SpeechSynthesisUtterance(text || emoji)
-            ]
-            .filter(Boolean)
-            .forEach(utterance => {
-              utterance.lang = this.state.lang;
-              
-              synth.speak(utterance);
-            });
-          }
-        );
+        this.setState({
+          emoji,
+          character,
+        }, () => {
+          [
+            new SpeechSynthesisUtterance(character),
+            !emoji && new SpeechSynthesisUtterance(text || emoji)
+          ]
+          .filter(Boolean)
+          .forEach(utterance => {
+            utterance.lang = this.state.lang;
+            synth.speak(utterance);
+          });
+        });
       });
   }
     
