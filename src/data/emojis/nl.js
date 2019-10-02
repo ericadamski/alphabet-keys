@@ -27,7 +27,7 @@ export default {
         117: [['🦉', 'Uil']],
         118: [['🏐', 'Volleyball'], ['🌋', 'Vulkaan'], ['🐦' ,'Vogel']],
         119: [['🌊', 'Water'], ['🍉', 'Watermeloen']],
-        120: [],
+        120: ['Xylofoon'],
         121: [['☯️', 'Yin'], ['☯️', 'Yang']],
         122: [['🦓', 'Zebra']]
       }
