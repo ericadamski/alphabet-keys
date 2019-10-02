@@ -8,8 +8,8 @@ import hi from './in-hi';
 import nb_NO from './nb-NO';
 import pl from './pl-PL';
 import pt_BR from './pt-BR';
+import zh from './zh';
 import sv from './sv';
-import id from './id';
 import it from './it';
 import el_GR from './el-GR';
 import tl from './tl';
@@ -24,8 +24,6 @@ export default {
   ...fr_FR.data,
   // german
   ...de.data,
-  // indonesian (Bahasa)
-  ...id.data,
   // dutch
   ...nl.data,
   // italian
@@ -34,6 +32,8 @@ export default {
   ...sv.data,
   // portuguese (Brazil)
   ...pt_BR.data,
+  // Chinese
+  ...zh.data,
   // norwegian
   ...nb_NO.data,
   // Polish
