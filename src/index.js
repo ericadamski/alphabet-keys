@@ -14,6 +14,7 @@ import './styles';
 import Selector from './selector';
 import { Alphabet } from './games/Alphabet';
 import { Counting } from './games/Counting';
+import { GithubIcon } from './icon/github';
 
 const synth = window.speechSynthesis;
 
@@ -37,6 +38,7 @@ const SelectorContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
+  align-items: center;
 `;
 
 const Reader = styled.textarea`
@@ -163,6 +165,11 @@ class App extends Component {
             selected={this.state.selectedGame}
             onSelect={this.onGameSelect}
           />
+          <a href="https://github.com/ericadamski/alphabet-keys" 
+             rel="noopener noreferrer" 
+             target="_blank">
+              <GithubIcon width="1.5em"  size="25"/>
+          </a>
         </SelectorContainer>
         <Reader
           aria-label="A hidden input to allow use on mobile devices"
