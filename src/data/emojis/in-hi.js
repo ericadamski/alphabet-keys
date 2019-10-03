@@ -1,6 +1,6 @@
 export default {
   meta: {
-    label: 'Indian Hindi'
+    label: 'Hindi (हिन्दी)'
   },
   data: {
     hi: {
