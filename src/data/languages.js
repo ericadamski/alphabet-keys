@@ -13,6 +13,7 @@ import sv from './emojis/sv';
 import it from './emojis/it';
 import el_GR from './emojis/el-GR';
 import tl from './emojis/tl';
+import da_DK from './emojis/da-DK';
 
 const allLangs = [
   en_CA,
@@ -29,7 +30,8 @@ const allLangs = [
   hi,
   el_GR,
   it,
-  tl
+  tl,
+  da_DK
 ];
 
 export const SUPPORTED_LANGS = allLangs.map(langData => ({
