@@ -13,6 +13,7 @@ import sv from './sv';
 import it from './it';
 import el_GR from './el-GR';
 import tl from './tl';
+import da_DK from './da-DK';
 
 export default {
   // english
@@ -43,5 +44,7 @@ export default {
   // Tagalog
   ...tl.data,
   // Greek
-  ...el_GR.data
+  ...el_GR.data,
+  // Danish
+  ...da_DK.data
 };
