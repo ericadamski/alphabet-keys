@@ -22,7 +22,7 @@ export default {
       112: [['🥞', 'Pfannenkuchen'], ['🍟', 'Pommes']],
       113: ['🇶🇦'],
       114: [['🤖', 'Roboter'], ['♻️', 'Recyceln'], ['☂️', 'Regenschirm']],
-      115: [['🐍', 'Schlange'], '🤳', '🥗', ['⭐️', 'Stern']],
+      115: [['🐍', 'Schlange'], '🤳', '🥗', ['⭐️', 'Stern'], ['🍫', 'Schokolade'], ['☀️', 'Sonne']],
       116: [['🦃', 'Truthahn'], ['🐯', 'Tiger'], ['🌮', 'Taco'], ['🐅', 'Tiger']],
       117: [['🚇', 'U-Bahn']],
       118: [['🏐', 'Volleyball'], ['🌋', 'Vulkan']],
