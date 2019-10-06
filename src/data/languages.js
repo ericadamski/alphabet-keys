@@ -1,3 +1,4 @@
+import da_DK from './emojis/da-DK';
 import de from './emojis/de';
 import nl from './emojis/nl';
 import en_CA from './emojis/en-CA';
@@ -15,6 +16,7 @@ import el_GR from './emojis/el-GR';
 import tl from './emojis/tl';
 
 const allLangs = [
+  da_DK,
   en_CA,
   es,
   fr_CA,
