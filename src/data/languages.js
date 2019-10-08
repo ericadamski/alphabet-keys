@@ -14,6 +14,7 @@ import sv from './emojis/sv';
 import it from './emojis/it';
 import el_GR from './emojis/el-GR';
 import tl from './emojis/tl';
+import vi from './emojis/vi';
 
 const allLangs = [
   da_DK,
@@ -31,7 +32,8 @@ const allLangs = [
   hi,
   el_GR,
   it,
-  tl
+  tl,
+  vi
 ];
 
 export const SUPPORTED_LANGS = allLangs.map(langData => ({
