@@ -1,6 +1,6 @@
 export default {
   meta: {
-    label: 'Swedish'
+    label: 'Swedish (svenska)'
   },
   data: {
     sv: {
