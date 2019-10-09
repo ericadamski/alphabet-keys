@@ -10,17 +10,8 @@ export default {
       99: [['🦐', 'camarão'], ['🍫', 'chocolate'], ['☕', 'café'], ['🥄', 'colher'], ['🏠', 'casa'], ['🚗', 'carro'], ['🥕', 'cenoura'], ['🍄', 'cogumelo'], ['🐍', 'cobra'], ['🦉', 'coruja'], ['🍒', 'Cereja'], ['🐰', 'Coelho'], ['🥥', 'Coco']],
       100: [['🦕', 'dinossauro'], ['🍩', 'donut'], ['🎲', 'dado'], ['💵', 'dinheiro'], ['🐉', 'dragão'], ['💎', 'Diamante'], ['🦷', 'Dente']],
       101: [['🐿', 'esquilo'], ['🐘', 'elefante'],['⭐', 'estrela'],['🦂','escorpião']],
-      102: [['👻', 'fantasma'], ['🐜', 'formiga'], ['🚀', 'foquete']],
-      103: [['🦒', 'girafa'], ['🦍', 'gorila'], ['🐱', 'gato'], ['🐔', 'galinha'],['🐬','golfinho']],
-      104: [['🚁', 'helicóptero'], ['🐹', 'hamster'],['🏨','hotel']],
-
-      97: [['⚓️', 'âncora'], ['🍍', 'abacaxi'], ['🚑', 'ambulância'], ['🐝', 'abelha'], ['🥜', 'amendoim'], ['🌈', 'Arco-íris'], ['✈', 'avião']],
-      98: [['🍌', 'banana'], ['👶', 'bebê'], ['🦋', 'borboleta'], ['🥔', 'batata'], ['🥦', 'brócolis'], ['🥖', 'baguete'], ['⛄️', 'Boneco de neve'] ['🥓', 'bacon'], ['🚲', 'bicicleta'], ['🐳', 'Baleia']],
-      99: [['🦐', 'camarão'], ['🍫', 'chocolate'], ['☕', 'café'], ['🥄', 'colher'], ['🏠', 'casa'], ['🚗', 'carro'], ['🥕', 'cenoura'], ['🍄', 'cogumelo'], ['🐍', 'cobra'], ['🦉', 'coruja'], ['🍒', 'Cereja'], ['🐰', 'Coelho'], ['🥥', 'Coco']],
-      100: [['🦕', 'dinossauro'], ['🍩', 'donut'], ['🎲', 'dado'], ['💵', 'dinheiro'], ['🐉', 'dragão'], ['💎', 'Diamante'], ['🦷', 'Dente']],
-      101: [['🐿', 'esquilo'], ['🐘', 'elefante'], ['⭐', 'estrela']],
       102: [['👻', 'fantasma'], ['🐜', 'formiga'], ['🚀', 'foquete'], ['🧚', 'fada']],
-      103: [['🦒', 'girafa'], ['🦍', 'gorila'], ['🐱', 'gato'], ['🐔', 'galinha']],
+      103: [['🦒', 'girafa'], ['🦍', 'gorila'], ['🐱', 'gato'], ['🐔', 'galinha'],['🐬','golfinho']],  
       104: [['🚁', 'helicóptero'], ['🐹', 'hamster'], ['🦛', 'hipopótamo']],
 
       105: [['☃️', 'inverno'], ['⛪', 'igreja'], ['🧲', 'Imã']],
@@ -32,9 +23,8 @@ export default {
       110: [['👃', 'nariz'], ['🌃', 'noite'], ['☁', 'nuvem'],['🚢','navio']],
       111: [['👂', 'orelha'], ['👁', 'olho'], ['🐑', 'ovelha'],['🥚','ovo']],
 
-      109: [['🐵', 'macaco'], ['🦇', 'morcego'], ['🍉', 'melancia'], ['🍎', 'maçã'], ['🍓', 'morango'], ['🍯', 'Mel'],['🥭', 'Manga']],
-      110: [['👃', 'nariz'], ['🌃', 'noite'], ['☁', 'nuvem']],
-      111: [['👂', 'orelha'], ['👁', 'olho'], ['🐑', 'ovelha'], ['🥚', 'ovo']],
+    
+    
 
       112: [['🐼', 'panda'], ['🐷', 'porco'], ['🐧', 'pinguim'], ['🦆', 'pato'], ['🐟', 'peixe'], ['🤡', 'palhaço'], ['🌶', 'Pimenta'], ['🦚', 'Pavão'], ['🥞', 'Panquecas']],
       113: [['🧀', 'queijo'], ['🔲', 'quadrado'], ['🧩', 'Quebra-cabeça']],
