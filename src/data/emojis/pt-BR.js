@@ -10,7 +10,8 @@ export default {
         ['🚑', 'ambulância'],
         ['🐝', 'abelha'],
         ['🥜', 'amendoim'],
-        ['🌈', 'Arco-íris']
+        ['🌈', 'Arco-íris'],
+        ['✈', 'avião']
       ],
       98: [
         ['🍌', 'banana'],
@@ -48,18 +49,29 @@ export default {
         ['💎', 'Diamante'],
         ['🦷', 'Dente']
       ],
-      101: [['🐿', 'esquilo'], ['🐘', 'elefante']],
-      102: [['👻', 'fantasma'], ['🐜', 'formiga'], ['🚀', 'foquete']],
+      101: [
+        ['🐿', 'esquilo'],
+        ['🐘', 'elefante'],
+        ['⭐', 'estrela'],
+        ['🦂', 'escorpião']
+      ],
+      102: [
+        ['👻', 'fantasma'],
+        ['🐜', 'formiga'],
+        ['🚀', 'foquete'],
+        ['🧚', 'fada']
+      ],
       103: [
         ['🦒', 'girafa'],
         ['🦍', 'gorila'],
         ['🐱', 'gato'],
-        ['🐔', 'galinha']
+        ['🐔', 'galinha'],
+        ['🐬', 'golfinho']
       ],
-      104: [['🚁', 'helicóptero'], ['🐹', 'hamster']],
+      104: [['🚁', 'helicóptero'], ['🐹', 'hamster'], ['🦛', 'hipopótamo']],
       105: [['☃️', 'inverno'], ['⛪', 'igreja'], ['🧲', 'Imã']],
       106: [['🐗', 'javali'], ['🐊', 'jacaré'], ['📰', 'jornal']],
-      107: [['🥝', 'kiwi']],
+      107: [['🥝', 'kiwi'], ['🎤', 'karaoke']],
       108: [
         ['🐺', 'lobo'],
         ['🦁', 'leão'],
@@ -74,10 +86,11 @@ export default {
         ['🍎', 'maçã'],
         ['🍓', 'morango'],
         ['🍯', 'Mel'],
-        ['🥭', 'Manga']
+        ['🥭', 'Manga'],
+        ['🦟', 'mosquito']
       ],
-      110: [['👃', 'nariz'], ['🌃', 'noite'], ['☁', 'nuvem']],
-      111: [['👂', 'orelha'], ['👁', 'olho'], ['🐑', 'ovelha']],
+      110: [['👃', 'nariz'], ['🌃', 'noite'], ['☁', 'nuvem'], ['🚢', 'navio']],
+      111: [['👂', 'orelha'], ['👁', 'olho'], ['🐑', 'ovelha'], ['🥚', 'ovo']],
       112: [
         ['🐼', 'panda'],
         ['🐷', 'porco'],
@@ -115,9 +128,18 @@ export default {
         ['☹️', 'Triste'],
         ['🌍', 'Terra']
       ],
-      117: [['🦄', 'unicórnio'], ['🍇', 'uva']],
-      118: [['🐮', 'vaca'], ['🧛‍♂️', 'vampiro'], ['🌋', 'vulcão']],
-      119: [],
+      117: [['🦄', 'unicórnio'], ['🍇', 'uva'], ['🐻', 'urso']],
+      118: [
+        ['🐮', 'vaca'],
+        ['🧛‍♂️', 'vampiro'],
+        ['🌋', 'vulcão'],
+        ['🎻', 'violino']
+      ],
+      119: [
+        ['💊', 'warfarina'],
+        ['🎛', 'wattômetro'],
+        ['🇼🇫', 'Wallis e Futuna']
+      ],
       121: [['💴', 'yene'], ['☯️', 'yin e yang']],
       122: [['🦓', 'zebra'], ['🧟', 'zumbi'], ['🤐', 'Zíper']]
     }
