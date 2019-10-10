@@ -14,6 +14,7 @@ import it from './it';
 import el_GR from './el-GR';
 import tl from './tl';
 import da_DK from './da-DK';
+import vi from './vi';
 
 export default {
   // english
@@ -46,5 +47,7 @@ export default {
   // Greek
   ...el_GR.data,
   // Danish
-  ...da_DK.data
+  ...da_DK.data,
+  // Vietnamese
+  ...vi.data
 };
